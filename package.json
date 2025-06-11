@@ -1,0 +1,18 @@
+{
+  "name": "todolist",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "build-bootstrap-css": "sass scss/custom-bootstrap.scss wwwroot/css/custom-bootstrap.css",
+    "build-bootstrap-js-win": "copy \"node_modules\\bootstrap\\dist\\js\\bootstrap.bundle.min.js\" \"wwwroot\\js\\bootstrap.bundle.min.js\"",
+    "build-bootstrap-js-linux": "cp node_modules/bootstrap/dist/js/bootstrap.bundle.min.js wwwroot/js/bootstrap.bundle.min.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "bootstrap": "^5.3.6",
+    "sass": "^1.89.2"
+  }
+}

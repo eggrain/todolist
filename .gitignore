@@ -1,2 +1,5 @@
 obj/
 bin/
+node_modules/
+wwwroot/css/custom-bootstrap.css
+wwwroot/css/custom-bootstrap.css.map
