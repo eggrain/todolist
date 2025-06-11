@@ -1,9 +1,25 @@
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using todolist.Data;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
 
+builder.Services.AddDbContext<AppDbContext>(options =>
+    options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+builder.Services.AddIdentity<IdentityUser, IdentityRole>(
+    options => options.SignIn.RequireConfirmedAccount = false)
+        .AddEntityFrameworkStores<AppDbContext>();
+
 var app = builder.Build();
+
+using IServiceScope scope = app.Services.CreateScope();
+AppDbContext db = scope.ServiceProvider
+                .GetRequiredService<AppDbContext>();
+db.Database.Migrate();
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
@@ -18,6 +34,7 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapRazorPages();
