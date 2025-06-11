@@ -19,9 +19,23 @@
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
+                        @if(User.Identity?.IsAuthenticated == true)
+                        {
+                            <li>
+                                <form method="post" asp-page="/Identity/Logout" class="d-inline">
+                                    <button type="submit" class="btn btn-link nav-link">Log out</button>
+                                </form>
+                            </li>
+                        }
+                        else
+                        {
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Index">Home</a>
+                            <a class="nav-link text-dark" asp-area="" asp-page="/Identity/Register">Register</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-page="/Identity/Login">Login</a>
+                        </li>
+                        }
                     </ul>
                 </div>
             </div>
