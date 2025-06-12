@@ -1,0 +1,23 @@
+@page
+@model todolist.Pages.Goals.IndexModel
+@using todolist.Models
+
+<h1>Goals</h1>
+
+<div class="d-flex flex-wrap column-gap-3 row-gap-3 my-4">
+@foreach (Goal goal in Model.Goals)
+{
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">@goal.Name</h5>
+            <a asp-page="/Goals/Show"
+                asp-route-id="@goal.Id"
+                class="btn btn-primary btn-sm">
+                View
+            </a>
+        </div>
+    </div>
+}
+</div>
+
+<a class="btn btn-primary" asp-page="/Goals/New">New goal</a>

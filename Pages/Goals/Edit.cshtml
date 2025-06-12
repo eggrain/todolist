@@ -1,0 +1,10 @@
+@page "{id}"
+@model todolist.Pages.Goals.EditModel
+
+<form method="post">
+    <div asp-validation-summary="All" class="text-danger"></div>
+
+    @await Html.PartialAsync("_Form", Model.Goal)
+
+    <button class="btn btn-primary" type="submit">Update goal</button> 
+</form>

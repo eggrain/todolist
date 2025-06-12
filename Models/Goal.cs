@@ -1,8 +1,11 @@
+using System.ComponentModel.DataAnnotations;
+
 namespace todolist.Models;
 
-public class Goal(string name) : Entity
+public class Goal : Entity
 {
-    public string Name { get; set; } = name;
+    [Required, MinLength(10)]
+    public string Name { get; set; } = null!;
 
     public List<Todo> Todos { get; set; } = [];
 }

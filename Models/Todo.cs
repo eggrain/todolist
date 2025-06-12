@@ -1,10 +1,15 @@
+using System.ComponentModel.DataAnnotations.Schema;
+
 namespace todolist.Models;
 
-public class Todo(string description) : Entity
+public class Todo : Entity
 {
-    public string Description { get; set; } = description;
+    public string Description { get; set; } = null!;
 
     public List<Goal> Goals { get; set; } = [];
 
-    public Project? Project { get; set;  }
+    [ForeignKey(nameof(Project))]
+    public string? ProjectId { get; set;  }
+
+    public Project? Project { get; set; }
 }

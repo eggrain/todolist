@@ -1,0 +1,15 @@
+@page
+@model todolist.Pages.Goals.NewModel
+@{
+    ViewData["Title"] = "New goal";
+}
+
+<h1>New goal</h1>
+
+<form method="post">
+    <div asp-validation-summary="All" class="text-danger"></div>
+
+    @await Html.PartialAsync("_Form", Model.Goal)
+
+    <button class="btn btn-primary" type="submit">Create goal</button>
+</form>

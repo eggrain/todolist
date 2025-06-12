@@ -1,0 +1,8 @@
+@page "{id}"
+@model todolist.Pages.Goals.ShowModel
+
+<h1>@Model.Goal.Name</h1>
+
+<a asp-page="/Goals/Edit"
+    asp-route-id="@Model.Goal.Id"
+    class="btn btn-primary">Edit</a>
