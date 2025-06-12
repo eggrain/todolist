@@ -2,14 +2,15 @@ using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using todolist.Models;
 
 namespace todolist.Pages.Identity;
 
-public class RegisterModel(UserManager<IdentityUser> userManager,
-                            SignInManager<IdentityUser> signInManager) : PageModel
+public class RegisterModel(UserManager<AppUser> userManager,
+                            SignInManager<AppUser> signInManager) : PageModel
 {
-    private readonly UserManager<IdentityUser> _userManager = userManager;
-    private readonly SignInManager<IdentityUser> _signInManager = signInManager;
+    private readonly UserManager<AppUser> _userManager = userManager;
+    private readonly SignInManager<AppUser> _signInManager = signInManager;
 
     [BindProperty]
     public InputModel Input { get; set; } = null!;
@@ -28,7 +29,7 @@ public class RegisterModel(UserManager<IdentityUser> userManager,
     {
         if (!ModelState.IsValid) return Page();
 
-        var user = new IdentityUser { UserName = Input.Email, Email = Input.Email };
+        var user = new AppUser { UserName = Input.Email, Email = Input.Email };
         var result = await _userManager.CreateAsync(user, Input.Password);
         if (result.Succeeded)
         {

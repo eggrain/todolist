@@ -2,12 +2,13 @@ using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using todolist.Models;
 
 namespace todolist.Pages.Identity;
 
-public class LoginModel(SignInManager<IdentityUser> signInManager) : PageModel
+public class LoginModel(SignInManager<AppUser> signInManager) : PageModel
 {
-    private readonly SignInManager<IdentityUser> _signInManager = signInManager;
+    private readonly SignInManager<AppUser> _signInManager = signInManager;
 
     [BindProperty]
     public InputModel Input { get; set; } = null!;

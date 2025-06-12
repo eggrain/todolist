@@ -1,12 +1,13 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using todolist.Models;
 
 namespace todolist.Pages.Identity;
 
-public class LogoutModel(SignInManager<IdentityUser> signInManager) : PageModel
+public class LogoutModel(SignInManager<AppUser> signInManager) : PageModel
 {
-    private readonly SignInManager<IdentityUser> _signInManager = signInManager;
+    private readonly SignInManager<AppUser> _signInManager = signInManager;
 
     public async Task<IActionResult> OnPostAsync()
     {

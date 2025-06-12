@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using todolist.Data;
+using todolist.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,7 +11,7 @@ builder.Services.AddRazorPages();
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-builder.Services.AddIdentity<IdentityUser, IdentityRole>(
+builder.Services.AddIdentity<AppUser, IdentityRole>(
     options => options.SignIn.RequireConfirmedAccount = false)
         .AddEntityFrameworkStores<AppDbContext>();
 
