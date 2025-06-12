@@ -25,12 +25,12 @@ public class LoginModel(SignInManager<IdentityUser> signInManager) : PageModel
     {
         if (!ModelState.IsValid) return Page();
 
-      var res = await _signInManager.PasswordSignInAsync(
-        Input.Email, Input.Password, Input.RememberMe, lockoutOnFailure: false);
+        var res = await _signInManager.PasswordSignInAsync(
+          Input.Email, Input.Password, Input.RememberMe, lockoutOnFailure: false);
 
-      if (res.Succeeded) return LocalRedirect("/");
+        if (res.Succeeded) return LocalRedirect("/");
 
-      ModelState.AddModelError("", "Invalid login attempt.");
-      return Page();
+        ModelState.AddModelError("", "Invalid login attempt.");
+        return Page();
     }
 }
