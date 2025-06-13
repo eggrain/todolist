@@ -1,0 +1,12 @@
+@page "{id}"
+@model todolist.Pages.Projects.EditModel
+
+<h1>Edit project</h1>
+
+<form method="post">
+    <div asp-validation-summary="All" class="text-danger"></div>
+
+    @await Html.PartialAsync("_Form", Model.Project)
+
+    <button type="submit" class="btn btn-primary">Update project</button>
+</form>

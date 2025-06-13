@@ -1,8 +1,8 @@
 namespace todolist.Models;
 
-public class Project(string name) : Entity
+public class Project : Entity
 {
-    public string Name { get; set; } = name;
+    public string Name { get; set; } = null!;
 
     public List<Todo> Todos { get; set; } = [];
 }

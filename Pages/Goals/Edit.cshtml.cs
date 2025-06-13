@@ -1,12 +1,7 @@
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using todolist.Data;
-using todolist.Models;
-
 namespace todolist.Pages.Goals;
 
-public class EditModel(AppDbContext db, UserManager<AppUser> users) : AppPageModel(db, users)
+public class EditModel(AppDbContext db, UserManager<AppUser> users)
+                                            : AppPageModel(db, users)
 {
     [BindProperty]
     public Goal Goal { get; set; } = null!;

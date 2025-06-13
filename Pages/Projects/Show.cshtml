@@ -1,0 +1,10 @@
+@page "{id}"
+@model todolist.Pages.Projects.ShowModel
+
+<h1>@Model.Project.Name</h1>
+
+<a class="btn btn-primary my-4"
+    asp-page="/Projects/Edit"
+    asp-route-id="@Model.Project.Id">
+    Edit
+</a>

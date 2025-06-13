@@ -1,11 +1,3 @@
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.EntityFrameworkCore;
-using todolist.Data;
-using todolist.Models;
-
 namespace todolist.Pages.Goals;
 
 public class IndexModel(AppDbContext db, UserManager<AppUser> users)

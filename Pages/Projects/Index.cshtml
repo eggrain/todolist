@@ -1,0 +1,20 @@
+@page
+@model todolist.Pages.Projects.IndexModel
+@using todolist.Models
+@{
+    ViewData["Title"] = "Projects";
+}
+
+<h1>Projects</h1>
+
+<div class="list-group my-4">
+@foreach(Project proj in @Model.Projects)
+{
+    <a asp-page="/Projects/Show" asp-route-id="@proj.Id" class="list-group-item list-group-item-action"
+        role="button">
+        @proj.Name
+    </a>
+}
+</div>
+
+<a asp-page="/Projects/New" class="btn btn-primary">New project</a>

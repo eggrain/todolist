@@ -1,9 +1,3 @@
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using todolist.Data;
-using todolist.Models;
-
 namespace todolist.Pages.Goals;
 
 public class ShowModel(AppDbContext db, UserManager<AppUser> users)
@@ -16,7 +10,8 @@ public class ShowModel(AppDbContext db, UserManager<AppUser> users)
     {
         string userId = _users.GetUserId(User)!;
 
-        Goal? goal = await _db.Goals.FirstOrDefaultAsync(g => g.Id == id);
+        Goal? goal = await _db.Goals
+                .FirstOrDefaultAsync(g => g.Id == id && g.UserId == userId);
         if (goal == null) return NotFound();
 
         Goal = goal;

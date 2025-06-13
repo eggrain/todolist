@@ -1,8 +1,5 @@
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using todolist.Data;
-using todolist.Models;
 
 namespace todolist.Pages;
 
@@ -12,4 +9,10 @@ public abstract class AppPageModel(AppDbContext db,
 {
     protected readonly AppDbContext _db = db;
     protected readonly UserManager<AppUser> _users = users;
+
+    protected string UserId()
+    {
+        // This will never be null because of [Authorize]
+        return _users.GetUserId(User)!;
+    }
 }

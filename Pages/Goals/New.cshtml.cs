@@ -1,9 +1,3 @@
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-using todolist.Data;
-using todolist.Models;
-
 namespace todolist.Pages.Goals;
 
 public class NewModel(AppDbContext db, UserManager<AppUser> users)
