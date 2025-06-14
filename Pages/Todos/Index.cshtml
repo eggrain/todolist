@@ -1,0 +1,13 @@
+@page
+@model todolist.Pages.Todos.IndexModel
+
+<h1>Todos</h1>
+
+<div class="my-4">
+    @foreach(Todo todo in @Model.Todos)
+    {
+        <a asp-page="/Todos/Show" asp-route-id="@todo.Id">@todo.Description</a>
+    }
+</div>
+
+<a asp-page="/Todos/New" class="btn btn-primary">New todo</a>

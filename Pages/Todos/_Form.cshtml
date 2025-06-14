@@ -1,0 +1,18 @@
+@model todolist.Pages.Todos.TodoFormViewModel
+@{
+    ViewData["Title"] = "New todo";
+}
+
+<div class="my-2">
+    <label class="form-label" asp-for="Description"></label>
+    <input class="form-control" asp-for="Description" />
+</div>
+
+<div class="my-2">
+    <label for="SelectedGoalIds">Related goals</label>
+    <select asp-for="SelectedGoalIds" aria-label="Select related goals"
+            asp-items="Model.AvailableGoals"
+            multiple
+            class="form-select">
+    </select>
+</div>

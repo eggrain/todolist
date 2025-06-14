@@ -1,0 +1,9 @@
+@page "{id}"
+@model todolist.Pages.Todos.ShowModel
+
+<p>@Model.Todo.Description</p>
+
+@foreach(Goal goal in @Model.Todo.Goals)
+{
+    @goal.Name
+}
