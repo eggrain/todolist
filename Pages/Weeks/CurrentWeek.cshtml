@@ -1,0 +1,35 @@
+@page
+@model todolist.Pages.Weeks.CurrentWeekModel
+@{
+    ViewData["Title"] = "Week";
+    List<DateTime> leftDays = Model.DaysOfWeek.Take(3).ToList();
+    List<DateTime> rightDays = Model.DaysOfWeek.Skip(3).Take(2).ToList();
+    List<DateTime> weekend = Model.DaysOfWeek.Skip(5).ToList();
+}
+
+<h1>@Model.MonthYear</h1>
+
+<div class="d-flex sm-flex-wrap justify-content-center gap-0" style="min-height: 40rem;">
+    <div class="d-flex flex-column w-100 gap-0 h-100">
+        @foreach (DateTime day in leftDays)
+        {
+            @await Html.PartialAsync("_DayCard", day)
+        }
+    </div>
+
+    <div class="d-flex flex-column w-100 gap-0 h-100">
+        @foreach (DateTime day in rightDays)
+        {
+            @await Html.PartialAsync("_DayCard", day)
+        }
+
+        <div class="d-flex gap-0 w-100 h-100">
+            @foreach (var day in weekend)
+            {
+                <div class="flex-grow-1" style="min-width: 0;">
+                    @await Html.PartialAsync("_DayCard", day)
+                </div>
+            }
+        </div>
+    </div>
+</div>
