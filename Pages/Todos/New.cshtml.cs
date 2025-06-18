@@ -33,7 +33,8 @@ public class NewModel(AppDbContext db, UserManager<AppUser> users)
         Todo todo = new()
         {
             UserId = userId,
-            Description = TodoForm.Description
+            Description = TodoForm.Description,
+            OnDate = TodoForm.OnDate
         };
 
         List<Goal> selectedGoals = await _db.Goals

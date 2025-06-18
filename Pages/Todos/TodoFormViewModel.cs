@@ -9,4 +9,6 @@ public class TodoFormViewModel
     public List<string> SelectedGoalIds { get; set; } = [];
 
     public List<SelectListItem> AvailableGoals { get; set; } = [];
+
+    public DateOnly OnDate { get; set;  }
 }

@@ -9,7 +9,9 @@ public class Todo : Entity
     public List<Goal> Goals { get; set; } = [];
 
     [ForeignKey(nameof(Project))]
-    public string? ProjectId { get; set;  }
+    public string? ProjectId { get; set; }
 
     public Project? Project { get; set; }
+
+    public DateOnly? OnDate { get; set; }
 }

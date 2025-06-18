@@ -1,0 +1,29 @@
+@model todolist.Pages.Planner.PlannerDayCardModel
+
+<div class="card text-center w-100 h-100 rounded-0" style="min-height: 9rem">
+    <div class="card-body">
+        <div class="d-flex justify-content-start column-gap-5 align-items-center pb-1 border-bottom">
+            <h5 class="card-title text-start d-flex align-items-center justify-content-start column-gap-3">
+                <span class="fs-3 card-text text-primary">@Model.Date.Day</span>
+
+                <span class="fs-4">@Model.Date.ToString("dddd")</span>
+            </h5>
+
+            <div class="">
+                <button class="btn btn-sm btn-primary"
+                        data-bs-toggle="modal"
+                        data-bs-target="#todoModal"
+                        data-date="@Model.Date.ToString("yyyy-MM-dd")">+ Todo</button>
+            </div>
+        </div>
+
+        <div class="my-2 d-flex flex-wrap column-gap-3 row-gap-3">
+            @foreach(Todo todo in Model.Todos)
+            {
+                @await Html.PartialAsync("_PlannerTodoCard", todo)
+            }
+        </div>
+
+        
+    </div>
+</div>
