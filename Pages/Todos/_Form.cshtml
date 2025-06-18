@@ -1,7 +1,10 @@
-@model todolist.Pages.Todos.TodoFormViewModel
+@model todolist.Models.Todo
+
 @{
     ViewData["Title"] = "New todo";
 }
+
+<input type="hidden" asp-for="UserId" />
 
 <div class="mb-4">
     <label class="form-label" asp-for="Description"></label>
@@ -12,15 +15,3 @@
     <label class="form-label" asp-for="OnDate">On date:</label>
     <input class="form-control" asp-for="OnDate" type="date"></label>
 </div>
-
-@if(Model.AvailableGoals.Count > 0)
-{
-<div class="my-2">
-    <label for="SelectedGoalIds">Related goals</label>
-    <select asp-for="SelectedGoalIds" aria-label="Select related goals"
-            asp-items="Model.AvailableGoals"
-            multiple
-            class="form-select">
-    </select>
-</div>
-}

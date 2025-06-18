@@ -7,7 +7,7 @@
     List<DateOnly> weekend = Model.DaysOfWeek.Skip(5).ToList();
 }
 
-@await Html.PartialAsync("_TodoModal", new todolist.Pages.Todos.TodoFormViewModel())
+@await Html.PartialAsync("_TodoModal", new todolist.Models.Todo())
 <script>
     const todoModal = document.getElementById('todoModal');
     todoModal.addEventListener('show.bs.modal', function (event) {

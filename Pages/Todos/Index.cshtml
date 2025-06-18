@@ -3,11 +3,13 @@
 
 <h1>Todos</h1>
 
-<div class="my-4">
+<div class="my-4 d-flex flex-wrap row-gap-3 column-gap-3">
     @foreach(Todo todo in @Model.Todos)
     {
-        <a asp-page="/Todos/Show" asp-route-id="@todo.Id">@todo.Description</a>
+        @* <a asp-page="/Todos/Show" asp-route-id="@todo.Id">@todo.Description</a> *@
+        @await Html.PartialAsync("_Card", todo)
     }
+    
 </div>
 
 <a asp-page="/Todos/New" class="btn btn-primary">New todo</a>

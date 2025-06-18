@@ -5,3 +5,4 @@ wwwroot/css/custom-bootstrap.css
 wwwroot/css/custom-bootstrap.css.map
 todolist.db-shm
 todolist.db-wal
+todolist.db

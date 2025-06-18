@@ -1,12 +1,9 @@
 @page "{id}"
 @model todolist.Pages.Todos.ShowModel
 
+<h1>Todo:</h1>
+
 <p>@Model.Todo.Description</p>
 
-@foreach(Goal goal in @Model.Todo.Goals)
-{
-    @goal.Name
-}
-
-
-@Model.Todo.OnDate
+<p>Complete at @(Model.Todo.AtTime == null ? "n/a" : Model.Todo.AtTime)
+     on @(Model.Todo.OnDate == null ? "n/a" : Model.Todo.OnDate)</p>

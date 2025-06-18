@@ -1,0 +1,11 @@
+@model Models.Todo
+
+<div class="card text-center" style="min-width: 8rem;">
+    <div class="card-body position-relative">
+        <a asp-page="/Todos/Edit" asp-route-id="@Model.Id" class="position-absolute top-0 end-0 m-1 text-decoration-none text-muted">
+            <i class="bi bi-pencil"></i>
+        </a>
+
+        <p class="card-text">@Model.Description</p>
+    </div>
+</div>

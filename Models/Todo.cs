@@ -5,13 +5,12 @@ namespace todolist.Models;
 public class Todo : Entity
 {
     public string Description { get; set; } = null!;
-
-    public List<Goal> Goals { get; set; } = [];
+    public bool Completed { get; set; } = false;
 
     [ForeignKey(nameof(Project))]
     public string? ProjectId { get; set; }
-
     public Project? Project { get; set; }
 
     public DateOnly? OnDate { get; set; }
+    public TimeOnly? AtTime { get; set;  }
 }

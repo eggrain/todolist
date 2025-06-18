@@ -10,7 +10,6 @@ public class ShowModel(AppDbContext db, UserManager<AppUser> users)
         string userId = UserId();
 
         Todo? todo = await _db.Todos
-            .Include(t => t.Goals)
             .FirstOrDefaultAsync(t => t.Id == id && t.UserId == userId);
         if (todo == null) return NotFound();
 

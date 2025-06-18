@@ -6,21 +6,15 @@ public class NewModel(AppDbContext db, UserManager<AppUser> users)
             : AppPageModel(db, users)
 {
     [BindProperty]
-    public TodoFormViewModel TodoForm { get; set; } = null!;
+    public Todo Todo { get; set; } = null!;
 
     public List<SelectListItem> AvailableGoals { get; set; } = [];
 
-    public async Task<IActionResult> OnGetAsync()
+    public IActionResult OnGet()
     {
         string userId = UserId();
 
-        List<Goal> goals = await _db.Goals
-            .Where(g => g.UserId == userId).ToListAsync();
-
-        AvailableGoals = [.. goals.Select(g =>
-            new SelectListItem { Value=g.Id, Text=g.Name })];
-
-        TodoForm = new() { Description = "", AvailableGoals=AvailableGoals };
+        Todo = new() { Description = "", UserId = userId };
 
         return Page();
     }
@@ -33,15 +27,9 @@ public class NewModel(AppDbContext db, UserManager<AppUser> users)
         Todo todo = new()
         {
             UserId = userId,
-            Description = TodoForm.Description,
-            OnDate = TodoForm.OnDate
+            Description = Todo.Description,
+            OnDate = Todo.OnDate
         };
-
-        List<Goal> selectedGoals = await _db.Goals
-            .Where(g => g.UserId == userId && TodoForm.SelectedGoalIds.Contains(g.Id))
-            .ToListAsync();
-
-        todo.Goals = selectedGoals;
 
         _db.Todos.Add(todo);
         await _db.SaveChangesAsync();
