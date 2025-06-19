@@ -11,7 +11,6 @@ public class EditModel(AppDbContext db, UserManager<AppUser> users)
         string userId = UserId();
         Todo? todo = await _db.Todos
                 .Where(t => t.Id == id && t.UserId == userId).FirstOrDefaultAsync();
-
         if (todo == null) return NotFound();
 
         Todo = todo;

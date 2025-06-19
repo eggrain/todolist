@@ -1,8 +1,3 @@
-using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
-using todolist.Data;
-using todolist.Models;
-
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.

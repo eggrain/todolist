@@ -6,10 +6,8 @@
 <div class="my-4 d-flex flex-wrap row-gap-3 column-gap-3">
     @foreach(Todo todo in @Model.Todos)
     {
-        @* <a asp-page="/Todos/Show" asp-route-id="@todo.Id">@todo.Description</a> *@
-        @await Html.PartialAsync("_Card", todo)
+        @await Html.PartialAsync("~/Pages/Shared/_TodoCard.cshtml", todo)
     }
-    
 </div>
 
 <a asp-page="/Todos/New" class="btn btn-primary">New todo</a>

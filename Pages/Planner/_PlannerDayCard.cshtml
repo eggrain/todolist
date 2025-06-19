@@ -20,7 +20,7 @@
         <div class="my-2 d-flex flex-wrap column-gap-3 row-gap-3">
             @foreach(Todo todo in Model.Todos)
             {
-                @await Html.PartialAsync("_PlannerTodoCard", todo)
+                @await Html.PartialAsync("~/Pages/Shared/_TodoCard.cshtml", todo)
             }
         </div>
 

@@ -4,14 +4,32 @@
     ViewData["Title"] = "New todo";
 }
 
-<input type="hidden" asp-for="UserId" />
-
-<div class="mb-4">
-    <label class="form-label" asp-for="Description"></label>
-    <input class="form-control" asp-for="Description" />
-</div>
-
 <div class="my-2">
-    <label class="form-label" asp-for="OnDate">On date:</label>
-    <input class="form-control" asp-for="OnDate" type="date"></label>
+    <div asp-validation-summary="All" class="text-danger"></div>
+
+    <input type="hidden" asp-for="UserId" />
+
+    <div class="my-2">
+        <label class="form-label" asp-for="Description"></label>
+        <input class="form-control" asp-for="Description" />
+        <span asp-validation-for="Description" class="text-danger"></span>
+    </div>
+
+    <div class="my-2">
+        <label class="form-label" asp-for="OnDate">On date:</label>
+        <input class="form-control" asp-for="OnDate" type="date"></label>
+        <span asp-validation-for="OnDate" class="text-danger"></span>
+    </div>
+
+    <div class="my-2">
+        <label asp-for="AtTime" class="form-label"></label>
+        <input asp-for="AtTime" class="form-control" type="time" />
+        <span asp-validation-for="AtTime" class="text-danger"></span>
+    </div>
+
+    <div class="my-2 form-check">
+        <label class="form-check-label" asp-for="Completed">Complete?</label>
+        <input class="form-check-input" asp-for="Completed" type="checkbox"></label>
+        <span asp-validation-for="Completed" class="text-danger"></span>
+    </div>
 </div>

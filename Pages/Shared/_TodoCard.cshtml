@@ -1,0 +1,38 @@
+@model Models.Todo
+
+<div class="card text-start" style="min-width: 8rem;">
+    <div class="card-body position-relative">
+        <div class="d-flex justify-content-between column-gap-3 align-items-center mb-2">
+            <button class="btn btn-sm btn-secondary">
+                Complete
+            </button>
+
+            <a href="#" data-bs-toggle="modal" data-bs-target="#editModal-@Model.Id"
+                class="btn btn-sm btn-primary">
+                <i class="bi bi-pencil"></i>
+            </a>
+        </div>
+
+        <p class="card-text">@Model.Description</p>
+
+        
+    </div>
+</div>
+
+<div class="modal fade text-start" id="editModal-@Model.Id" tabindex="-1" aria-labelledby="editModalLabel-@Model.Id"
+    aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editModalLabel-@Model.Id">Edit Todo</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form method="post" asp-page="/Todos/Edit" asp-route-id="@Model.Id">
+                    @await Html.PartialAsync("~/Pages/Todos/_Form.cshtml", Model)
+                    <button type="submit" class="btn btn-primary">Update</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

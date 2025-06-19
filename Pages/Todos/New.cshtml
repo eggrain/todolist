@@ -5,8 +5,6 @@
 
 <div>
     <form method="post">
-        <div asp-validation-summary="All" class="text-danger"></div>
-
         @await Html.PartialAsync("_Form", Model.Todo)
 
         <button type="submit" class="btn btn-primary">Create todo</button>
