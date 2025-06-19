@@ -1,6 +1,10 @@
 @model Models.Todo
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpCtx
+@{
+    string returnUrl = HttpCtx.HttpContext!.Request.Path + HttpCtx.HttpContext.Request.QueryString;
+}
 
-<div class="card text-start" style="min-width: 8rem;">
+<div class="card rounded-0 border-secondary text-start" style="min-width: 8rem;">
     <div class="card-body position-relative">
         <div class="d-flex justify-content-between column-gap-3 align-items-center mb-2">
             <button class="btn btn-sm btn-secondary">
@@ -14,8 +18,6 @@
         </div>
 
         <p class="card-text">@Model.Description</p>
-
-        
     </div>
 </div>
 
@@ -28,7 +30,8 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form method="post" asp-page="/Todos/Edit" asp-route-id="@Model.Id">
+                <form method="post" asp-page="/Todos/Edit" asp-route-id="@Model.Id" asp-route-returnUrl="@returnUrl">
+                    <input value="@returnUrl" type="hidden" name="returnUrl" />
                     @await Html.PartialAsync("~/Pages/Todos/_Form.cshtml", Model)
                     <button type="submit" class="btn btn-primary">Update</button>
                 </form>

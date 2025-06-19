@@ -6,6 +6,9 @@ public class EditModel(AppDbContext db, UserManager<AppUser> users)
     [BindProperty]
     public Todo Todo { get; set; } = null!;
 
+    [BindProperty]
+    public string? ReturnUrl { get; set; } = null;
+
     public async Task<IActionResult> OnGetAsync(string id)
     {
         string userId = UserId();
@@ -31,6 +34,10 @@ public class EditModel(AppDbContext db, UserManager<AppUser> users)
         todo.Completed = Todo.Completed;
 
         await _db.SaveChangesAsync();
+
+        if (ReturnUrl != null)
+            return LocalRedirect(ReturnUrl);
+
         return LocalRedirect($"/Todos/Show/{id}");
     }
 }
