@@ -2,14 +2,11 @@
 @inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpCtx
 @{
     string returnUrl = HttpCtx.HttpContext!.Request.Path + HttpCtx.HttpContext.Request.QueryString;
+    string editFormId = $"edit-form-{Model.Id}";
 }
 
 <div class="card rounded-0 border text-start" style="min-width: 8rem; max-width: 16rem;">
     <div class="card-body p-0 m-0">
-        <div class="clearfix">
-            
-        </div>
-
         <div class="card-text">
             <a href="#" data-bs-toggle="modal" data-bs-target="#editModal-@Model.Id"
                 class="btn btn-sm btn-outline-secondary float-end mt-1 me-1">
@@ -31,11 +28,30 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form method="post" asp-page="/Todos/Edit" asp-route-id="@Model.Id" asp-route-returnUrl="@returnUrl">
+                <form id="@editFormId" method="post" asp-page="/Todos/Edit" asp-route-id="@Model.Id" asp-route-returnUrl="@returnUrl">
                     <input value="@returnUrl" type="hidden" name="returnUrl" />
                     @await Html.PartialAsync("~/Pages/Todos/_Form.cshtml", Model)
-                    <button type="submit" class="btn btn-primary">Update</button>
                 </form>
+
+                <div class="d-flex justify-content-around align-items-center">
+                    <button form="@editFormId" type="submit"
+                            class="btn btn-outline-primary">
+                            Update
+                    </button>
+
+                    <form method="post"
+                        asp-page="/Todos/Delete"
+                        asp-route-id="@Model.Id"
+                        class="d-inline">
+                        <input value="@returnUrl" type="hidden" name="returnUrl" />
+                        <button type="submit"
+                                class="btn btn-outline-danger"
+                                title="Delete this item">
+                            <i class="bi bi-trash"></i> Delete
+                        </button>
+                    </form>
+
+                </div>
             </div>
         </div>
     </div>

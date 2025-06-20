@@ -19,7 +19,7 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1 justify-content-end column-gap-3">
+                    <ul class="navbar-nav flex-grow-1 justify-content-end align-items-center column-gap-3">
                         @if(User.Identity?.IsAuthenticated == true)
                         {
                             <li>
@@ -41,20 +41,23 @@
                         else
                         {
                         <li class="nav-item">
-                            <a class="nav-link" asp-page="/Identity/Register">Register</a>
+                            <a class="btn btn-outline-primary" asp-page="/Identity/Register">Register</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" asp-page="/Identity/Login">Login</a>
+                            <a class="btn btn-outline-secondary" asp-page="/Identity/Login">Login</a>
                         </li>
                         }
 
                         @if(User.Identity?.IsAuthenticated == true)
                         {
                             <li>
-                                <form method="post" asp-page="/Identity/Logout" class="d-inline">
-                                    <button type="submit" class="btn btn-danger">Log out</button>
+                                <button form="logout-form" type="submit"
+                                    class="btn btn-outline-danger">Log out</button>
+                                <form id="logout-form" method="post" asp-page="/Identity/Logout" class="d-inline">
                                 </form>
                             </li>
+
+                            
                         }
                     </ul>
                 </div>

@@ -22,6 +22,7 @@ public class EditModel(AppDbContext db, UserManager<AppUser> users)
 
     public async Task<IActionResult> OnPostAsync(string id)
     {
+        if (!ModelState.IsValid) return Page();
         string userId = UserId();
 
         Todo? todo = await _db.Todos

@@ -21,6 +21,8 @@ body {
   margin-bottom: 60px;
 }
 
-.modal-dialog {
-  margin-top: 5rem;
+@media screen and (min-height: 800px) {
+  .modal-dialog {
+    margin-top: 5rem;
+  }
 }
