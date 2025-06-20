@@ -1,8 +1,37 @@
 @model todolist.Pages.Planner.PlannerDayCardModel
+@{
+    var isoDate   = Model.Date.ToString("yyyy-MM-dd");
+    var modalId   = $"todoModal-{isoDate}";
+    var todoModel = new Models.Todo { UserId = Model.UserId, OnDate = Model.Date };
+}
 
-<div class="card text-center w-100 h-100 rounded-0" style="min-height: 9rem">
+<form method="post" asp-page="/Todos/New">
+    <div class="modal fade" id="@modalId" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">New Todo</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div asp-validation-summary="All" class="text-danger"></div>
+
+                    <input type="hidden" name="Date" id="todo-date" />
+
+                    @await Html.PartialAsync("/Pages/Todos/_Form.cshtml", todoModel)
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+<div class="card text-center w-100 h-100 rounded-0 border-primary" style="min-height: 9rem">
     <div class="card-body">
-        <div class="d-flex justify-content-start column-gap-5 align-items-center pb-1 border-bottom">
+        <div class="d-flex justify-content-start column-gap-5 align-items-center pb-1 border-bottom border-primary">
             <h5 class="card-title text-start d-flex align-items-center justify-content-start column-gap-3">
                 <span class="fs-3 card-text text-primary">@Model.Date.Day</span>
 
@@ -12,15 +41,14 @@
             <div class="">
                 <button class="btn btn-sm btn-primary"
                         data-bs-toggle="modal"
-                        data-bs-target="#todoModal"
-                        data-date="@Model.Date.ToString("yyyy-MM-dd")">+ Todo</button>
+                        data-bs-target="#@modalId">+ Todo</button>
             </div>
         </div>
 
         <div class="my-2 d-flex flex-wrap column-gap-3 row-gap-3">
             @foreach(Todo todo in Model.Todos)
             {
-                @await Html.PartialAsync("~/Pages/Shared/_TodoCard.cshtml", todo)
+                @await Html.PartialAsync("~/Pages/Todos/_Card.cshtml", todo)
             }
         </div>
 

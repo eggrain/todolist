@@ -1,5 +1,3 @@
-using Microsoft.AspNetCore.Mvc.Rendering;
-
 namespace todolist.Pages.Todos;
 
 public class NewModel(AppDbContext db, UserManager<AppUser> users)
@@ -8,7 +6,8 @@ public class NewModel(AppDbContext db, UserManager<AppUser> users)
     [BindProperty]
     public Todo Todo { get; set; } = null!;
 
-    public List<SelectListItem> AvailableGoals { get; set; } = [];
+    [BindProperty]
+    public string? ReturnUrl { get; set; } = null;
 
     public IActionResult OnGet()
     {
@@ -28,11 +27,16 @@ public class NewModel(AppDbContext db, UserManager<AppUser> users)
         {
             UserId = userId,
             Description = Todo.Description,
-            OnDate = Todo.OnDate
+            OnDate = Todo.OnDate,
+            Completed = Todo.Completed
         };
 
         _db.Todos.Add(todo);
         await _db.SaveChangesAsync();
+
+        if (ReturnUrl != null)
+            return LocalRedirect(ReturnUrl);
+
         return LocalRedirect("/Todos/Index");
     }
 }

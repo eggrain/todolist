@@ -3,7 +3,4 @@
 
 <h1>Todo:</h1>
 
-<p>@Model.Todo.Description</p>
-
-<p>Complete at @(Model.Todo.AtTime == null ? "n/a" : Model.Todo.AtTime)
-     on @(Model.Todo.OnDate == null ? "n/a" : Model.Todo.OnDate)</p>
+@await Html.PartialAsync("_Details", Model.Todo)

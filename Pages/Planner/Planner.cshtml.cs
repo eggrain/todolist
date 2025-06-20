@@ -39,7 +39,8 @@ public class PlannerModel(AppDbContext db, UserManager<AppUser> users)
         return new PlannerDayCardModel
         {
             Date = day,
-            Todos = MapDayTodos.TryGetValue(day, out var list) ? list : []
+            Todos = MapDayTodos.TryGetValue(day, out var list) ? list : [],
+            UserId = UserId()
         };
     }
 }

@@ -1,25 +1,11 @@
 @page
 @model todolist.Pages.Planner.PlannerModel
 @{
-    ViewData["Title"] = "Week";
+    ViewData["Title"] = "Planner";
     List<DateOnly> leftDays = Model.DaysOfWeek.Take(3).ToList();
     List<DateOnly> rightDays = Model.DaysOfWeek.Skip(3).Take(2).ToList();
     List<DateOnly> weekend = Model.DaysOfWeek.Skip(5).ToList();
 }
-
-@await Html.PartialAsync("_TodoModal", new todolist.Models.Todo())
-<script>
-    const todoModal = document.getElementById('todoModal');
-    todoModal.addEventListener('show.bs.modal', function (event) {
-        const button = event.relatedTarget;
-        const date = button.getAttribute('data-date');
-        const dateInput = todoModal.querySelector('input[name="OnDate"]');
-        if (dateInput && date) {
-            dateInput.value = date;
-        }
-    });
-</script>
-
 
 <h1>@Model.MonthYear</h1>
 
