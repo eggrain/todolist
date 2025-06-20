@@ -1,8 +1,10 @@
 @model todolist.Pages.Planner.PlannerDayCardModel
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpCtx
 @{
-    var isoDate   = Model.Date.ToString("yyyy-MM-dd");
-    var modalId   = $"todoModal-{isoDate}";
-    var todoModel = new Models.Todo { UserId = Model.UserId, OnDate = Model.Date };
+    string isoDate   = Model.Date.ToString("yyyy-MM-dd");
+    string modalId   = $"todoModal-{isoDate}";
+    Todo todoModel = new Models.Todo { UserId = Model.UserId, OnDate = Model.Date };
+    string returnUrl = HttpCtx.HttpContext!.Request.Path + HttpCtx.HttpContext.Request.QueryString;
 }
 
 <form method="post" asp-page="/Todos/New">
@@ -14,8 +16,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <div asp-validation-summary="All" class="text-danger"></div>
-
+                    <input value="@returnUrl" type="hidden" name="returnUrl" />
                     <input type="hidden" name="Date" id="todo-date" />
 
                     @await Html.PartialAsync("/Pages/Todos/_Form.cshtml", todoModel)
