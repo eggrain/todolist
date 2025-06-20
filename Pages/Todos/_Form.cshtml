@@ -6,7 +6,8 @@
 
 <div asp-validation-summary="All" class="text-danger"></div>
 
-<input type="hidden" asp-for="UserId" />
+<input type="hidden" name="UserId" value="@Model.UserId" />
+<input type="hidden" name="ProjectId" value="@Model.ProjectId" />
 
 <div class="mb-2">
     <label class="form-label" asp-for="Description"></label>

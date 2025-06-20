@@ -1,10 +1,52 @@
 @page "{id}"
 @model todolist.Pages.Projects.ShowModel
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpCtx
+@{
+    ViewData["Title"] = @Model.Project.Name;
+    string modalId = "new-todo-for-project-modal";
+    string returnUrl = HttpCtx.HttpContext!.Request.Path + HttpCtx.HttpContext.Request.QueryString;
+}
 
-<h1>@Model.Project.Name</h1>
+<div class="d-flex column-gap-5 align-items-center mb-4">
+    <h1 class="m-0">@Model.Project.Name</h1>
 
-<a class="btn btn-primary my-4"
-    asp-page="/Projects/Edit"
-    asp-route-id="@Model.Project.Id">
-    Edit
-</a>
+    <a class="btn btn-outline-primary"
+        asp-page="/Projects/Edit"
+        asp-route-id="@Model.Project.Id">
+        Edit
+    </a>
+</div>
+
+<div class="d-flex flex-wrap column-gap-3 row-gap-3 my-2">
+    @foreach(Todo todo in @Model.Project.Todos)
+    {
+        @await Html.PartialAsync("/Pages/Todos/_Card.cshtml", todo)
+    }
+</div>
+
+<div class="mt-4">
+    <button class="btn btn-outline-primary"
+        data-bs-toggle="modal"
+        data-bs-target="#@modalId">+ Todo</button>
+</div>
+
+<form method="post" asp-page="/Todos/New">
+    <div class="modal fade" id="@modalId" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">New Todo</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <input value="@returnUrl" type="hidden" name="returnUrl" />
+                    @await Html.PartialAsync("/Pages/Todos/_Form.cshtml", @Model.NewTodo)
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

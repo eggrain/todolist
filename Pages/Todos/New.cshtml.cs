@@ -28,7 +28,8 @@ public class NewModel(AppDbContext db, UserManager<AppUser> users)
             UserId = userId,
             Description = Todo.Description,
             OnDate = Todo.OnDate,
-            Completed = Todo.Completed
+            Completed = Todo.Completed,
+            ProjectId = Todo.ProjectId
         };
 
         _db.Todos.Add(todo);

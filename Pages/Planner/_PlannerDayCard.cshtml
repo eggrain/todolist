@@ -17,8 +17,6 @@
                 </div>
                 <div class="modal-body">
                     <input value="@returnUrl" type="hidden" name="returnUrl" />
-                    <input type="hidden" name="Date" id="todo-date" />
-
                     @await Html.PartialAsync("/Pages/Todos/_Form.cshtml", todoModel)
                 </div>
                 <div class="modal-footer">
