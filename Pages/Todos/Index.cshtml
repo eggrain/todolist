@@ -4,7 +4,12 @@
     ViewData["Title"] = "Todos";
 }
 
-<h1>Todos</h1>
+<h1 class="d-inline-flex align-items-end mb-0 column-gap-3">
+    <span>Todos</span>
+    <a asp-page="/Todos/New" class="btn btn-outline-primary">
+        <i class="bi bi-plus-lg"></i> todo
+    </a>
+</h1>
 
 <div class="my-4 d-flex flex-wrap row-gap-3 column-gap-3">
     @foreach(Todo todo in @Model.Todos)
@@ -12,5 +17,3 @@
         @await Html.PartialAsync("~/Pages/Todos/_Card.cshtml", todo)
     }
 </div>
-
-<a asp-page="/Todos/New" class="btn btn-primary">New todo</a>

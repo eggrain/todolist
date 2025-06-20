@@ -1,25 +1,23 @@
 @model Models.Todo
 
-<p class="mb-1">@Model.Description</p>
+<p class="mb-1">
+    @Model.Description 
+    @if(Model.Completed)
+    {
+        <i class="bi bi-check-square-fill text-success"></i>
+    }
+    else
+    {
+        <i class="bi bi-x-square-fill text-danger"></i>
+    }
+</p>
 
-@if(Model.AtTime != null && Model.OnDate != null)
+@if(Model.OnDate != null)
 {
-    <p>@Model.AtTime on @Model.OnDate</p>
-}
-else if(Model.OnDate != null)
-{
-    <p>On @Model.OnDate</p>
-}
-else if(Model.AtTime != null)
-{
-    <p>At @Model.AtTime</p>
+    <p class="mb-1">@Model.OnDate</p>
 }
 
-@if(Model.Completed)
+@if(Model.AtTime != null)
 {
-    <strong class="text-success">Complete ✅</strong>
-}
-else
-{
-    <strong class="text-danger">Not complete ❌</strong>
+    <p class="mb-1">@Model.AtTime</p>
 }

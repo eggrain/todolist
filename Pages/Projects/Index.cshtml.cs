@@ -17,6 +17,7 @@ public class IndexModel(AppDbContext db,
         string userId = UserId();
 
         Projects = await _db.Projects.AsNoTracking()
+                    .Include(p => p.Todos)
                     .Where(p => p.UserId == userId).ToListAsync();
 
         return Page();
