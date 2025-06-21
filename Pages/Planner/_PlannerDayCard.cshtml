@@ -5,6 +5,21 @@
     string modalId   = $"todoModal-{isoDate}";
     Todo todoModel = new Models.Todo { UserId = Model.UserId, OnDate = Model.Date };
     string returnUrl = HttpCtx.HttpContext!.Request.Path + HttpCtx.HttpContext.Request.QueryString;
+
+    List<Todo> completed = [];
+    List<Todo> incompleted = [];
+
+    foreach(Todo todo in Model.Todos.OrderBy(todo => todo.StartTime))
+    {
+        if (todo.Completed == true)
+        {
+            completed.Add(todo);
+        }
+        else
+        {
+            incompleted.Add(todo);
+        }
+    }
 }
 
 <form method="post" asp-page="/Todos/New">
@@ -45,7 +60,14 @@
         </div>
 
         <div class="my-2 d-flex flex-wrap column-gap-3 row-gap-3">
-            @foreach(Todo todo in Model.Todos)
+            <ul class="list-group border border-success rounded-0">
+            @foreach(Todo todo in completed)
+            {
+                @await Html.PartialAsync("/Pages/Todos/_ListItem.cshtml", todo)
+            }
+            </ul>
+            
+            @foreach(Todo todo in incompleted)
             {
                 @await Html.PartialAsync("~/Pages/Todos/_Card.cshtml", todo)
             }

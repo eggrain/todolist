@@ -1,0 +1,17 @@
+@model Models.Todo
+@{
+    string textCss = (Model.Completed == true) ? "text-success" : "text-danger";
+}
+
+<li class="list-group-item @textCss">
+    <span>@Model.Description</span>
+    <span>@Model.StartTime</span>
+    @if(Model.Completed)
+    {
+        <i class="bi bi-check-square-fill"></i>
+    }
+    else
+    {
+        <i class="bi bi-x-square-fill"></i>
+    }
+</li>

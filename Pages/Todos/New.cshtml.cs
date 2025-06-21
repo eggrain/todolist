@@ -23,13 +23,17 @@ public class NewModel(AppDbContext db, UserManager<AppUser> users)
         if (!ModelState.IsValid) return Page();
 
         string userId = UserId();
+        if (userId != Todo.UserId) return BadRequest();
+
         Todo todo = new()
         {
             UserId = userId,
             Description = Todo.Description,
             OnDate = Todo.OnDate,
             Completed = Todo.Completed,
-            ProjectId = Todo.ProjectId
+            ProjectId = Todo.ProjectId,
+            StartTime = Todo.StartTime,
+            EndTime = Todo.EndTime
         };
 
         _db.Todos.Add(todo);

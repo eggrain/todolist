@@ -12,5 +12,6 @@ public class Todo : Entity
     public Project? Project { get; set; }
 
     public DateOnly? OnDate { get; set; }
-    public TimeOnly? AtTime { get; set;  }
+    public TimeOnly? StartTime { get; set; }
+    public TimeOnly? EndTime { get; set;  }
 }
