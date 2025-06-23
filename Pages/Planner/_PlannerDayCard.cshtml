@@ -53,23 +53,29 @@
             </h5>
 
             <div class="">
-                <button class="btn btn-outline-primary border-0"
+                <button class="btn btn-outline-primary"
                         data-bs-toggle="modal"
                         data-bs-target="#@modalId"><i class="bi bi-plus-lg"></i> todo</button>
             </div>
         </div>
 
         <div class="my-2 d-flex flex-wrap column-gap-3 row-gap-3">
-            <ul class="list-group border border-success rounded-0">
-            @foreach(Todo todo in completed)
+            @if(completed.Count != 0)
             {
-                @await Html.PartialAsync("/Pages/Todos/_ListItem.cshtml", todo)
+                <ul class="list-group border border-success rounded-0">
+                @foreach(Todo todo in completed)
+                {
+                    @await Html.PartialAsync("/Pages/Todos/_ListItem.cshtml", todo)
+                }
+                </ul>
             }
-            </ul>
-            
-            @foreach(Todo todo in incompleted)
+ 
+            @if(incompleted.Count != 0)
             {
-                @await Html.PartialAsync("~/Pages/Todos/_Card.cshtml", todo)
+                @foreach(Todo todo in incompleted)
+                {
+                    @await Html.PartialAsync("~/Pages/Todos/_Card.cshtml", todo)
+                }
             }
         </div>
 

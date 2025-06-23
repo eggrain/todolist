@@ -1,10 +1,29 @@
 ﻿@page
 @model IndexModel
 @{
-    ViewData["Title"] = "Home page";
+    ViewData["Title"] = "Home";
+    string[][] links = [["Planner 📄", "/Planner/Planner"], ["Projects 🖇️", "/Projects/Index"]];
 }
 
-<div class="text-center">
-    <h1 class="display-4">todolist</h1>
-    <p>This is a practice todolist app.</p>
-</div>
+@if (User.Identity?.IsAuthenticated == false)
+{
+    <div class="text-center my-5">
+        <h1 class="display-4 fw-bold">todolist</h1>
+        <p class="lead text-muted">This is a practice todolist app.</p>
+    </div>
+}
+else
+{
+    <h1 class="mb-4">Dashboard</h1>
+
+    <div class="d-flex flex-wrap gap-3">
+        @foreach (string[] link in links)
+        {
+            <div class="card shadow-sm border-primary" style="width: 12rem;">
+                <div class="card-body d-flex align-items-center justify-content-center" style="height: 5rem;">
+                    <a class="stretched-link text-decoration-none fw-semibold fs-3" href="@link[1]">@link[0]</a>
+                </div>
+            </div>
+        }
+    </div>
+}

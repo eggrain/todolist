@@ -3,33 +3,45 @@
 @{
     string returnUrl = HttpCtx.HttpContext!.Request.Path + HttpCtx.HttpContext.Request.QueryString;
     string editFormId = $"edit-form-{Model.Id}";
-    string borderClass = (Model.Completed == true) ? "border-success" : "border-danger";
+    string borderClass = (Model.Completed == true) ? "border-success" : "border-warning";
+    string backgroundClass = (Model.Completed == true) ? "bg-success" : "bg-warning";
 }
 
-<div class="card rounded-0 border @borderClass text-start" style="min-width: 8rem; max-width: 16rem;">
-    <div class="card-body">
-        <div class="card-text">
+<div class="card rounded-0 border @borderClass text-start" style="width: 16rem;">
+    <div class="card-body @backgroundClass text-dark">
+        <div class="card-text fw-medium">
             @await Html.PartialAsync("/Pages/Todos/_Details.cshtml", Model)
         </div>
     </div>
-    <div class="card-footer d-flex justify-content-end column-gap-1 p-0">
-        <form method="post"
-            asp-page="/Todos/Delete"
-            asp-route-id="@Model.Id"
-            class="d-inline">
-            <input value="@returnUrl" type="hidden" name="returnUrl" />
-            <button type="submit"
-                    class="btn btn-sm btn-outline-danger border-0 rounded-0"
-                    title="Delete this todo">
-                <i class="bi bi-trash"></i>
-            </button>
-        </form>
+    <div class="card-footer d-flex justify-content-between column-gap-3 p-0 ps-2 align-items-center">
+            @if(Model.Completed)
+            {
+                <span>Done <i class="bi bi-check-square-fill text-success"></i></span>
+            }
+            else
+            {
+                <span>TODO <i class="bi bi-x-square-fill text-danger"></i></span>
+            }
+            <div class="d-flex justify-content-end column-gap-1 align-items-center">
+            <form method="post"
+                asp-page="/Todos/Delete"
+                asp-route-id="@Model.Id"
+                class="d-inline">
+                <input value="@returnUrl" type="hidden" name="returnUrl" />
+                <button type="submit"
+                        class="btn btn-sm btn-outline-danger border-0 rounded-0"
+                        title="Delete this todo">
+                    <i class="bi bi-trash"></i>
+                </button>
+            </form>
+            
 
-        <a href="#" data-bs-toggle="modal" data-bs-target="#editModal-@Model.Id"
-            class="btn btn-sm btn-outline-primary border-0 rounded-0"
-            title="Edit this todo">
-            <i class="bi bi-pencil"></i>
-        </a>
+            <a href="#" data-bs-toggle="modal" data-bs-target="#editModal-@Model.Id"
+                class="btn btn-sm btn-outline-secondary border-0 rounded-0"
+                title="Edit this todo">
+                <i class="bi bi-pencil"></i>
+            </a>
+        </div>
     </div>
 </div>
 

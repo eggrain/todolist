@@ -2,19 +2,24 @@
 @model todolist.Pages.Projects.ShowModel
 @inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpCtx
 @{
-    ViewData["Title"] = @Model.Project.Name;
+    ViewData["Title"] = "⚒️ " + @Model.Project.Name;
     string modalId = "new-todo-for-project-modal";
     string returnUrl = HttpCtx.HttpContext!.Request.Path + HttpCtx.HttpContext.Request.QueryString;
 }
 
-<div class="d-flex column-gap-5 align-items-center mb-4">
-    <h1 class="m-0">@Model.Project.Name</h1>
+<div class="d-inline-flex column-gap-3 align-items-center mb-4">
+    <h1 class="m-0 d-inline">
+        @Model.Project.Name <a class="btn btn-outline-primary border-0"
+                                asp-page="/Projects/Edit"
+                                asp-route-id="@Model.Project.Id"
+                                title="Edit this project">
+                                <i class="bi bi-pencil"></i>
+                            </a>
+    </h1>
 
-    <a class="btn btn-outline-primary"
-        asp-page="/Projects/Edit"
-        asp-route-id="@Model.Project.Id">
-        Edit
-    </a>
+    <button class="btn btn-outline-primary"
+        data-bs-toggle="modal"
+        data-bs-target="#@modalId">+ Todo</button>
 </div>
 
 <div class="d-flex flex-wrap column-gap-3 row-gap-3 my-2">
@@ -25,9 +30,7 @@
 </div>
 
 <div class="mt-4">
-    <button class="btn btn-outline-primary"
-        data-bs-toggle="modal"
-        data-bs-target="#@modalId">+ Todo</button>
+    <a class="btn btn-outline-secondary" asp-page="/Projects/Index">🔙 Projects</a>
 </div>
 
 <form method="post" asp-page="/Todos/New">

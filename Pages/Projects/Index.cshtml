@@ -5,7 +5,10 @@
     ViewData["Title"] = "Projects";
 }
 
-<h1>Projects</h1>
+<span class="d-inline-flex column-gap-3 align-items-center">
+    <h1>Projects</h1>
+    <a asp-page="/Projects/New" class="btn btn-outline-secondary">New project</a>
+</span>
 
 <div class="list-group my-4">
 @foreach(Project proj in @Model.Projects)
@@ -18,4 +21,3 @@
 }
 </div>
 
-<a asp-page="/Projects/New" class="btn btn-outline-secondary">New project</a>
