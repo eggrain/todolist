@@ -6,9 +6,24 @@
 
 @if(Model.Project != null)
 {
-<p class="my-1">
-    <i>@Model.Project.Name</i>
-</p>
+    RouteData route = ViewContext.RouteData;
+    string? currentPage = route.Values["page"]?.ToString();
+    string? currentId = route.Values["id"]?.ToString();
+
+    bool isCurrentProjectPage = currentPage == "/Projects/Show" && currentId == Model.Project.Id.ToString();
+
+    <p class="my-1">
+        @if (!isCurrentProjectPage)
+        {
+            <a class="text-secondary" asp-page="/Projects/Show" asp-route-id="@Model.Project.Id">
+                <i>@Model.Project.Name</i>
+            </a>
+        }
+        else
+        {
+            <i>@Model.Project.Name</i>
+        }
+    </p>
 }
 
 @if(Model.OnDate != null)
