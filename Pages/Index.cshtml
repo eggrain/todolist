@@ -2,7 +2,7 @@
 @model IndexModel
 @{
     ViewData["Title"] = "Home";
-    string[][] links = [["Planner 📄", "/Planner/Planner"], ["Projects 🖇️", "/Projects/Index"]];
+    string[][] links = [["TODOS 📔", "/Todos/Index"], ["Planner 📄", "/Planner/Planner"], ["Projects 🖇️", "/Projects/Index"]];
 }
 
 @if (User.Identity?.IsAuthenticated == false)

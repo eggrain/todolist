@@ -12,7 +12,14 @@
 </h1>
 
 <div class="my-4 d-flex flex-wrap row-gap-3 column-gap-3">
-    @foreach(Todo todo in @Model.Todos)
+    @foreach(Todo todo in @Model.Incompleted)
+    {
+        @await Html.PartialAsync("~/Pages/Todos/_Card.cshtml", todo)
+    }
+</div>
+
+<div class="my-4 d-flex flex-wrap row-gap-3 column-gap-3">
+    @foreach(Todo todo in @Model.Completed)
     {
         @await Html.PartialAsync("~/Pages/Todos/_Card.cshtml", todo)
     }

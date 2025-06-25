@@ -4,6 +4,13 @@
     @Model.Description 
 </p>
 
+@if(Model.Project != null)
+{
+<p class="my-1">
+    <i>@Model.Project.Name</i>
+</p>
+}
+
 @if(Model.OnDate != null)
 {
     <p class="mb-1">@Model.OnDate</p>
