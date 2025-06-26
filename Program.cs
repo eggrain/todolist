@@ -3,8 +3,23 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddRazorPages();
 
+string dbCon = null!;
+
+if (builder.Environment.IsDevelopment())
+{
+    dbCon = builder.Configuration.GetConnectionString("DefaultConnection")
+    ?? throw new InvalidOperationException(
+        "Is SQLite connection string in appsettings.json missing?");
+}
+else if (builder.Environment.IsProduction())
+{
+    dbCon = builder.Configuration["todolist_DATABASE_PATH"]
+        ?? throw new InvalidOperationException(
+            "Is todolist_DATABASE_CONNECTION environment variable present?");
+}
+
 builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
+    options.UseSqlite(dbCon));
 
 builder.Services.AddIdentity<AppUser, IdentityRole>(
     options => options.SignIn.RequireConfirmedAccount = false)
