@@ -23,20 +23,17 @@
                         @if(User.Identity?.IsAuthenticated == true)
                         {
                             <li>
-                                <a class="nav-link" asp-page="/Goals/Index">Goals</a>
-                            </li>
-
-                            <li>
-                                <a class="nav-link" asp-page="/Projects/Index">Projects</a>
-                            </li>
-
-                            <li>
                                 <a class="nav-link" asp-page="/Todos/Index">Todos</a>
                             </li>
-
                             <li>
                                 <a class="nav-link" asp-page="/Planner/Planner">Planner</a>
                             </li>
+                            <li>
+                                <a class="nav-link" asp-page="/Projects/Index">Projects</a>
+                            </li>
+                            <li>
+                                <a class="nav-link" asp-page="/Goals/Index">Goals</a>
+                            </li> 
                         }
                         else
                         {

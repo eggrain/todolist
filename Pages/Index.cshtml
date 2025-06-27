@@ -2,7 +2,10 @@
 @model IndexModel
 @{
     ViewData["Title"] = "Home";
-    string[][] links = [["Todos", "/Todos/Index"], ["Planner", "/Planner/Planner"], ["Projects", "/Projects/Index"]];
+    string[][] links = [["Todos", "/Todos/Index"],
+        ["Planner", "/Planner/Planner"],
+        ["Projects", "/Projects/Index"],
+        ["Goals", "/Goals/Index"]];
 }
 
 @if (User.Identity?.IsAuthenticated == false)
@@ -19,7 +22,7 @@ else
     <div class="d-flex flex-wrap gap-3">
         @foreach (string[] link in links)
         {
-            <div class="card shadow-sm border-primary" style="width: 12rem;">
+            <div class="card shadow-sm border-secondary" style="width: 12rem;">
                 <div class="card-body d-flex align-items-center justify-content-center" style="height: 5rem;">
                     <a class="stretched-link text-decoration-none fw-semibold fs-3" href="@link[1]">@link[0]</a>
                 </div>

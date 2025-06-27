@@ -5,18 +5,22 @@
     ViewData["Title"] = "Goals";
 }
 
-<h1>Goals</h1>
+<span class="d-flex column-gap-3 align-items-center">
+    <h1>Goals</h1>
+
+    <a asp-page="/Goals/New" class="btn btn-outline-secondary">
+        <i class="bi bi-plus-lg"></i> goal
+    </a>
+</span>
 
 <div class="d-flex flex-wrap column-gap-3 row-gap-3 my-4">
     @foreach (Goal goal in Model.Goals)
     {
         <a asp-page="/Goals/Show" asp-route-id="@goal.Id" style="width: 16rem;"
             class="card text-decoration-none mb-3">
-            <div class="card-body">
-                <h5 class="card-title mb-0">@goal.Name</h5>
+            <div class="card-body p-3">
+                <h2 class="h5 card-title mb-0">@goal.Name</h2>
             </div>
         </a>
     }
 </div>
-
-<a class="btn btn-primary" asp-page="/Goals/New">New goal</a>

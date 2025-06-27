@@ -1,8 +1,44 @@
 @page "{id}"
 @model todolist.Pages.Goals.ShowModel
+@{
+    ViewData["Title"] = @Model.Goal.Name;
+}
 
-<h1>@Model.Goal.Name</h1>
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb mb-1">
+        <li class="breadcrumb-item">
+            <a asp-page="/Goals/Index">Goals</a>
+        </li>
+        <li class="breadcrumb-item active" aria-current="page">
+            <span class="">@Model.Goal.Name</span>
+        </li>
+    </ol>
+</nav>
 
-<a asp-page="/Goals/Edit"
-    asp-route-id="@Model.Goal.Id"
-    class="btn btn-primary">Edit</a>
+<div class="d-flex flex-wrap column-gap-3 row-gap-3 align-items-center mb-4">
+    <h1 class="m-0 d-inline fs-2">
+        @Model.Goal.Name
+    </h1>
+
+    <a class="btn btn-sm btn-outline-secondary" asp-page="/Goals/Edit" asp-route-id="@Model.Goal.Id"
+        title="Edit this goal">
+        <i class="bi bi-pencil"></i>
+    </a>
+
+    <a asp-page="/Goals/ProgressNotes/New" asp-route-goalId="@Model.Goal.Id"
+             class="btn btn-sm btn-outline-secondary">
+        <i class="bi bi-plus-lg"></i> progress note
+    </a>
+</div>
+
+@foreach (var note in Model.Goal.ProgressNotes)
+{
+  <div class="card mb-3">
+    <div class="card-body">
+      <p class="card-text">@note.Text</p>
+      <small class="text-muted">
+        @note.CreatedAt.ToLocalTime().ToString("MMMM d, yyyy 'at' h:mm tt")
+      </small>
+    </div>
+  </div>
+}

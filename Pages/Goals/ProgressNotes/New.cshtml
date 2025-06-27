@@ -1,0 +1,17 @@
+@page "{goalId}"
+@model todolist.Pages.Goals.ProgressNotes.NewModel
+@{
+    ViewData["Title"] = "New progress note";
+}
+
+<h1>@Model.Goal.Name - new note</h1>
+
+<form method="post">
+    <partial name="_Form" for="Note" />
+
+    <button class="btn btn-outline-secondary"
+            method="post" type="submit">
+        Create note
+    </button>
+</form>
+

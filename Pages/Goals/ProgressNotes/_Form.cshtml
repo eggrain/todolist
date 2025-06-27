@@ -1,0 +1,12 @@
+@model ProgressNote
+
+<input type="hidden" asp-for="GoalId" />
+<input type="hidden" asp-for="UserId" />
+
+<div asp-validation-summary="All" class="text-danger"></div>
+
+<div class="mb-3">
+    <label asp-for="Text" class="form-label"></label>
+    <textarea asp-for="Text" class="form-control"></textarea>
+    <span asp-validation-for="Text" class="text-danger"></span>
+</div>
