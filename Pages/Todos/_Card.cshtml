@@ -16,11 +16,11 @@
     <div class="card-footer d-flex justify-content-between column-gap-3 p-0 ps-2 align-items-center">
             @if(Model.Completed)
             {
-                <span>Done <i class="bi bi-check-square-fill text-success"></i></span>
+                <span title="Complete"><i class="bi bi-check-square-fill text-success"></i></span>
             }
             else
             {
-                <span>TODO <i class="bi bi-x-square-fill text-danger"></i></span>
+                <span title="Incomplete"><i class="bi bi-x-square-fill text-danger"></i></span>
             }
             <div class="d-flex justify-content-end column-gap-1 align-items-center">
             <form method="post"

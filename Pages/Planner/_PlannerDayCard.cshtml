@@ -45,17 +45,19 @@
 
 <div class="card text-center w-100 h-100 rounded-0 border" style="min-height: 9rem">
     <div class="card-body">
-        <div class="d-flex justify-content-start column-gap-3 align-items-center pb-1 border-bottom">
-            <h5 class="card-title text-start d-flex align-items-center justify-content-start column-gap-3 mb-0">
+        <div class="d-flex flex-wrap row-gap-3 justify-content-start column-gap-3 align-items-center pb-1 border-bottom">
+            <h5 class="card-title text-start d-flex flex-wrap row-gap-3 align-items-center justify-content-start column-gap-3 mb-0">
                 <span class="fs-3 card-text text-primary">@Model.Date.Day</span>
 
                 <span class="fs-4">@Model.Date.ToString("dddd")</span>
             </h5>
 
             <div class="">
-                <button class="btn btn-outline-primary"
+                <button class="btn btn-sm btn-outline-secondary"
                         data-bs-toggle="modal"
-                        data-bs-target="#@modalId"><i class="bi bi-plus-lg"></i> todo</button>
+                        data-bs-target="#@modalId">
+                    <i class="bi bi-plus-lg"></i> todo
+                </button>
             </div>
         </div>
 
