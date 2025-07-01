@@ -1,8 +1,5 @@
 using System.ComponentModel.DataAnnotations;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using todolist.Models;
 
 namespace todolist.Pages.Identity;
 
@@ -26,7 +23,8 @@ public class LoginModel(SignInManager<AppUser> signInManager) : PageModel
     {
         if (!ModelState.IsValid) return Page();
 
-        var res = await _signInManager.PasswordSignInAsync(
+        Microsoft.AspNetCore.Identity.SignInResult res =
+             await _signInManager.PasswordSignInAsync(
           Input.Email, Input.Password, Input.RememberMe, lockoutOnFailure: false);
 
         if (res.Succeeded) return LocalRedirect("/");
