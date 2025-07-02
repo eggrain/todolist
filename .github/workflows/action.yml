@@ -1,7 +1,10 @@
 name: deploy-todolist
 
 on:
-    workflow_dispatch:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
 
 jobs:
   build-and-deploy:
