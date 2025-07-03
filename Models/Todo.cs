@@ -13,5 +13,9 @@ public class Todo : Entity
 
     public DateOnly? OnDate { get; set; }
     public TimeOnly? StartTime { get; set; }
-    public TimeOnly? EndTime { get; set;  }
+    public TimeOnly? EndTime { get; set; }
+
+    [ForeignKey(nameof(Goal))]
+    public string? GoalId { get; set; }
+    public Goal? Goal { get; set; }
 }

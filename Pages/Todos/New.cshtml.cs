@@ -33,7 +33,8 @@ public class NewModel(AppDbContext db, UserManager<AppUser> users)
             Completed = Todo.Completed,
             ProjectId = Todo.ProjectId,
             StartTime = Todo.StartTime,
-            EndTime = Todo.EndTime
+            EndTime = Todo.EndTime,
+            GoalId = Todo.GoalId
         };
 
         _db.Todos.Add(todo);

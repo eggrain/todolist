@@ -31,7 +31,17 @@
     <p class="mb-1">@Model.OnDate</p>
 }
 
+<p class="mb-2">
 @if(Model.StartTime != null)
 {
-    <p class="mb-1">@Model.StartTime</p>
+    <span class="">@Model.StartTime</span>
 }
+@if(Model.StartTime != null || Model.EndTime != null)
+{
+    <span> - </span>
+}
+@if(Model.EndTime != null || Model.EndTime != null)
+{
+    <span class="">@Model.EndTime</span>
+}
+</p>

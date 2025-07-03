@@ -34,6 +34,8 @@ public class EditModel(AppDbContext db, UserManager<AppUser> users)
         todo.StartTime = Todo.StartTime;
         todo.Completed = Todo.Completed;
         todo.EndTime = Todo.EndTime;
+        todo.GoalId = Todo.GoalId;
+        todo.ProjectId = Todo.ProjectId;
 
         await _db.SaveChangesAsync();
 
