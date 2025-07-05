@@ -18,14 +18,14 @@
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1 justify-content-end align-items-center column-gap-3">
+                <div class="navbar-collapse collapse">
+                    <ul class="navbar-nav ms-auto column-gap-3 row-gap-1">
                         @if(User.Identity?.IsAuthenticated == true)
                         {
-                            <li>
+                            <li class="nav-item">
                                 <a class="nav-link" asp-page="/Todos/Index">Todos</a>
                             </li>
-                            <li>
+                            <li class="nav-item">
                                 <a class="nav-link" asp-page="/Planner/Planner">Planner</a>
                             </li>
                             <li>
@@ -47,7 +47,7 @@
 
                         @if(User.Identity?.IsAuthenticated == true)
                         {
-                            <li>
+                            <li class="nav-item">
                                 <button form="logout-form" type="submit"
                                     class="btn btn-outline-danger">Log out</button>
                                 <form id="logout-form" method="post" asp-page="/Identity/Logout" class="d-inline">
