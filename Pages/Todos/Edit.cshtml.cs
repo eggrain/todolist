@@ -3,30 +3,38 @@ namespace todolist.Pages.Todos;
 public class EditModel(AppDbContext db, UserManager<AppUser> users)
                 : AppPageModel(db, users)
 {
-    [BindProperty]
-    public Todo Todo { get; set; } = null!;
+    [BindProperty] public Todo Todo { get; set; } = null!;
+    [BindProperty] public string? ReturnUrl { get; set; } = null;
+    [BindProperty] public string Id { get; set; } = null!;
 
-    [BindProperty]
-    public string? ReturnUrl { get; set; } = null;
-
-    public async Task<IActionResult> OnGetAsync(string id)
+    private async Task<Todo?> GetTodo()
     {
         string userId = UserId();
-        Todo? todo = await _db.Todos
-                .Where(t => t.Id == id && t.UserId == userId).FirstOrDefaultAsync();
+        return await _db.Todos
+                .Where(t => t.Id == Id && t.UserId == userId).FirstOrDefaultAsync();
+    }
+
+    private LocalRedirectResult RedirectToReturnUrlOrTodo()
+    {
+        if (ReturnUrl != null)
+            return LocalRedirect(ReturnUrl);
+
+        return LocalRedirect($"/Todos/Show/{Id}");
+    }
+
+    public async Task<IActionResult> OnGetAsync()
+    {
+        Todo? todo = await GetTodo();
         if (todo == null) return NotFound();
 
         Todo = todo;
         return Page();
     }
 
-    public async Task<IActionResult> OnPostAsync(string id)
+    public async Task<IActionResult> OnPostAsync()
     {
         if (!ModelState.IsValid) return Page();
-        string userId = UserId();
-
-        Todo? todo = await _db.Todos
-            .Where(t => t.Id == id && t.UserId == userId).FirstOrDefaultAsync();
+        Todo? todo = await GetTodo();
         if (todo == null) return NotFound();
 
         todo.Description = Todo.Description;
@@ -39,9 +47,26 @@ public class EditModel(AppDbContext db, UserManager<AppUser> users)
 
         await _db.SaveChangesAsync();
 
-        if (ReturnUrl != null)
-            return LocalRedirect(ReturnUrl);
+        return RedirectToReturnUrlOrTodo();
+    }
 
-        return LocalRedirect($"/Todos/Show/{id}");
+    public async Task<IActionResult> OnPostCompleteTodoAsync()
+    {
+        Todo? todo = await GetTodo();
+        if (todo == null) return NotFound();
+
+        todo.Completed = true;
+        await _db.SaveChangesAsync();
+        return RedirectToReturnUrlOrTodo();
+    }
+
+    public async Task<IActionResult> OnPostUncompleteTodoAsync()
+    {
+        Todo? todo = await GetTodo();
+        if (todo == null) return NotFound();
+
+        todo.Completed = false;
+        await _db.SaveChangesAsync();
+        return RedirectToReturnUrlOrTodo();
     }
 }

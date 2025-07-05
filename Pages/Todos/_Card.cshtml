@@ -3,45 +3,70 @@
 @{
     string returnUrl = HttpCtx.HttpContext!.Request.Path + HttpCtx.HttpContext.Request.QueryString;
     string editFormId = $"edit-form-{Model.Id}";
-    string borderClass = (Model.Completed == true) ? "border-success" : "border-warning";
-    string backgroundClass = (Model.Completed == true) ? "bg-success" : "bg-warning";
+    string deleteFormId = $"delete-{Model.Id}";
+    string completeTodoId = $"complete-{Model.Id}";
+    string uncompleteTodoId = $"uncomplete-{Model.Id}";
+    string borderColor = (Model.Completed == true) ? "border-success" : "border-warning";
+    string bgColor = (Model.Completed == true) ? "bg-success" : "bg-warning";
 }
 
-<div class="card rounded-0 border @borderClass text-start" style="width: 16rem;">
-    <div class="card-body @backgroundClass text-dark">
+<div class="card rounded-0 border @borderColor text-start" style="width: 16rem;">
+    <div class="card-body @bgColor text-dark">
         <div class="card-text fw-medium">
             @await Html.PartialAsync("/Pages/Todos/_Details.cshtml", Model)
         </div>
     </div>
-    <div class="card-footer d-flex justify-content-between column-gap-3 p-0 ps-2 align-items-center">
-            @if(Model.Completed)
-            {
-                <span title="Complete"><i class="bi bi-check-square-fill text-success"></i></span>
-            }
-            else
-            {
-                <span title="Incomplete"><i class="bi bi-x-square-fill text-danger"></i></span>
-            }
-            <div class="d-flex justify-content-end column-gap-1 align-items-center">
-            <form method="post"
+    <div class="card-footer d-flex justify-content-between column-gap-3 p-0 align-items-center">
+        <div class="d-flex column-gap-1 align-items-center">
+
+            <button form="@deleteFormId" type="submit"
+                    class="btn btn-sm btn-outline-danger border-0 rounded-0"
+                    title="Delete this todo">
+                <i class="bi bi-trash"></i>
+            </button>
+            <form id="@deleteFormId" method="post"
                 asp-page="/Todos/Delete"
                 asp-route-id="@Model.Id"
                 class="d-inline">
                 <input value="@returnUrl" type="hidden" name="returnUrl" />
-                <button type="submit"
-                        class="btn btn-sm btn-outline-danger border-0 rounded-0"
-                        title="Delete this todo">
-                    <i class="bi bi-trash"></i>
-                </button>
             </form>
+
+            @if(Model.Completed)
+            {
+                <button form="@uncompleteTodoId"
+                        class="btn btn-sm btn-outline-danger border-0 rounded-0"
+                        title="Mark incomplete">
+                    <i class="bi bi-slash-lg"></i>
+                </button>
+
+                <form id="@uncompleteTodoId" method="post"
+                    asp-page="/Todos/Edit" asp-route-id="@Model.Id" asp-page-handler="UncompleteTodo">
+                    <input value="@returnUrl" type="hidden" name="returnUrl" />
+                </form>
+            }
+            else
+            {
+                <button form="@completeTodoId"
+                        class="btn btn-sm btn-outline-success border-0 rounded-0"
+                        title="Mark complete">
+                    <i class="bi bi-check-square-fill"></i>
+                </button>
+
+                <form id="@completeTodoId" method="post"
+                    asp-page="/Todos/Edit" asp-route-id="@Model.Id" asp-page-handler="CompleteTodo">
+                    <input value="@returnUrl" type="hidden" name="returnUrl" />
+                </form>
+            }
             
 
-            <a href="#" data-bs-toggle="modal" data-bs-target="#editModal-@Model.Id"
-                class="btn btn-sm btn-outline-secondary border-0 rounded-0"
-                title="Edit this todo">
-                <i class="bi bi-pencil"></i>
-            </a>
         </div>
+            
+
+        <a href="#" data-bs-toggle="modal" data-bs-target="#editModal-@Model.Id"
+            class="btn btn-sm btn-outline-secondary border-0 rounded-0"
+            title="Edit this todo">
+            <i class="bi bi-pencil"></i>
+        </a>
     </div>
 </div>
 
