@@ -1,0 +1,21 @@
+@page
+@model todolist.Pages.ShoppingLists.Stores.ShowModel
+@{
+    ViewData["Title"] = @Model.Store.Name;
+    string newItemModalId = $"new-store-${@Model.Store.Id}-item";
+}
+
+<h1>@Model.Store.Name</h1>
+
+<div class="d-flex gap-3 align-items-center">
+    <h2>Items</h2>
+
+    
+</div>
+
+<a asp-page="/ShoppingLists/Stores/Items/New"
+   asp-route-storeId="@Model.Store.Id">
+  Add Item
+</a>
+
+
