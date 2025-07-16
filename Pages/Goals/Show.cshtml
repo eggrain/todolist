@@ -41,22 +41,28 @@
     </button>
 </div>
 
-<div class="d-flex flex-wrap column-gap-3 row-gap-3 my-4">
-    @foreach(Todo todo in @Model.Goal.Todos)
+<div class="d-flex flex-wrap-reverse gap-3 mb-4">
+    <div class="flex-grow-1">
+    @foreach (ProgressNote note in Model.Goal.ProgressNotes)
     {
-        @await Html.PartialAsync("/Pages/Todos/_Card.cshtml", todo)
+        <div class="mb-4">
+        <partial name="ProgressNotes/_Card"
+                    model="new todolist.Pages.Goals.ProgressNotes.CardModel {
+                    GoalId = Model.Goal.Id,
+                    Note   = note
+                    }" />
+        </div>
     }
-</div>
+    </div>
 
-<div class="my-2">
-@foreach (ProgressNote note in Model.Goal.ProgressNotes)
-{
-  <partial name="ProgressNotes/_Card"
-             model="new todolist.Pages.Goals.ProgressNotes.CardModel {
-               GoalId = Model.Goal.Id,
-               Note   = note
-             }" />
-}
+    <div style="min-width: 300px; max-width: 400px;">
+        @foreach(Todo todo in @Model.Goal.Todos)
+        {
+            <div class="mb-4">
+            @await Html.PartialAsync("/Pages/Todos/_Card.cshtml", todo)
+            </div>
+        }
+    </div>
 </div>
 
 <form method="post" asp-page="/Todos/New">
