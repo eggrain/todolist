@@ -1,17 +1,16 @@
-@page "{goalId}"
-@model todolist.Pages.Goals.ProgressNotes.NewModel
+@page "{goalId}/{noteId}"
+@model todolist.Pages.Goals.ProgressNotes.EditModel
 @{
-    ViewData["Title"] = "New progress note";
+    ViewData["Title"] = "Edit progress note";
 }
 
-<h1>@Model.Goal.Name - new note</h1>
+<h1>@Model.Goal.Name - edit note</h1>
 
 <form method="post">
     <partial name="_Form" for="@Model.Note" />
 
     <button class="btn btn-outline-secondary"
             method="post" type="submit">
-        Create note
+        Update note
     </button>
 </form>
-
