@@ -1,0 +1,16 @@
+@model todolist.Pages.Goals.ProgressNotes.CardModel;
+
+<div class="card my-2">
+    <div class="card-body">
+        <p class="card-text">@Model.Note.Text</p>
+        <small class="text-muted">
+            @Model.Note.CreatedAt.ToLocalTime().ToString("MMMM d, yyyy 'at' h:mm tt")
+        </small>
+    </div>
+    <div class="card-footer">
+        <a asp-page="/Goals/ProgressNotes/Edit" asp-route-goalId="@Model.GoalId" asp-route-noteId="@Model.Note.Id"
+            class="btn btn-sm btn-outline-primary">
+            Edit note
+        </a>
+    </div>
+</div>

@@ -49,25 +49,13 @@
 </div>
 
 <div class="my-2">
-    @* TODO: Make this a card component *@
 @foreach (ProgressNote note in Model.Goal.ProgressNotes)
 {
-  <div class="card my-2">
-    <div class="card-body">
-      <p class="card-text">@note.Text</p>
-      <small class="text-muted">
-        @note.CreatedAt.ToLocalTime().ToString("MMMM d, yyyy 'at' h:mm tt")
-      </small>
-    </div>
-    <div class="card-footer">
-        <a asp-page="/Goals/ProgressNotes/Edit"
-            asp-route-goalId="@Model.Goal.Id"
-            asp-route-noteId="@note.Id"
-            class="btn btn-sm btn-outline-primary">
-            Edit note
-        </a>
-    </div>
-  </div>
+  <partial name="ProgressNotes/_Card"
+             model="new todolist.Pages.Goals.ProgressNotes.CardModel {
+               GoalId = Model.Goal.Id,
+               Note   = note
+             }" />
 }
 </div>
 
