@@ -11,7 +11,7 @@ public class IndexModel(AppDbContext db, UserManager<AppUser> users)
     {
         string userId = UserId();
 
-        Todos = await _db.Todos.Include(t => t.Project)
+        Todos = await _db.Todos.Include(t => t.Project).Include(t => t.Goal)
                         .Where(t => t.UserId == userId)
                         .OrderBy(t => t.OnDate == null)
                         .ThenBy(t => t.OnDate).ToListAsync();

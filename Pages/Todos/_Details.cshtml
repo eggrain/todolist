@@ -1,28 +1,35 @@
 @model Models.Todo
+@{
+    RouteData route = ViewContext.RouteData;
+    string? currentPage = route.Values["page"]?.ToString();
+    string? currentId = route.Values["id"]?.ToString();
+
+    bool isCurrentProjectPage = currentPage == "/Projects/Show" && currentId == Model.Project?.Id.ToString();
+    bool isCurrentGoalPage = currentPage == "/Goals/Show" && currentId == Model.Goal?.Id.ToString();
+
+    bool showProjectLink = Model.Project != null && !isCurrentProjectPage;
+    bool showGoalLink = Model.Goal != null && !isCurrentGoalPage;
+}
 
 <p class="mb-1">
     @Model.Description 
 </p>
 
-@if(Model.Project != null)
+@if (showProjectLink)
 {
-    RouteData route = ViewContext.RouteData;
-    string? currentPage = route.Values["page"]?.ToString();
-    string? currentId = route.Values["id"]?.ToString();
-
-    bool isCurrentProjectPage = currentPage == "/Projects/Show" && currentId == Model.Project.Id.ToString();
-
     <p class="my-1">
-        @if (!isCurrentProjectPage)
-        {
-            <a class="text-secondary" asp-page="/Projects/Show" asp-route-id="@Model.Project.Id">
-                <i>@Model.Project.Name</i>
-            </a>
-        }
-        else
-        {
-            <i>@Model.Project.Name</i>
-        }
+        <a class="text-secondary" asp-page="/Projects/Show" asp-route-id="@Model.ProjectId">
+            <i>@Model.Project!.Name</i>
+        </a>
+    </p>
+}
+
+@if (showGoalLink)
+{
+    <p class="my-1">
+        <a class="text-secondary" asp-page="/Goals/Show" asp-route-id="@Model.GoalId">
+            <i>@Model.Goal!.Name</i>
+        </a>
     </p>
 }
 
