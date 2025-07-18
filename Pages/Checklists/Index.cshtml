@@ -1,0 +1,20 @@
+@page
+@model todolist.Pages.Checklists.IndexModel
+@{
+    ViewData["Title"] = "Checklists";
+}
+
+<span class="d-flex flex-wrap gap-3 align-items-center">
+    <h1>Checklists</h1>
+
+    <a asp-page="/Checklists/New" class="btn btn-outline-secondary">
+        <i class="bi bi-plus-lg"></i> checklist
+    </a>
+</span>
+
+<div class="my-4 d-flex flex-wrap gap-3 align-items-center">
+    @foreach(Checklist checklist in Model.Checklists)
+    {
+        <partial name="~/Pages/Checklists/_Card.cshtml" model="checklist" />
+    }
+</div>

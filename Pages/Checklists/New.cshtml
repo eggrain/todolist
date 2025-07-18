@@ -1,0 +1,15 @@
+@page
+@model todolist.Pages.Checklists.NewModel
+@{
+    ViewData["Title"] = "New checklist";
+}
+
+<h1>New checklist</h1>
+
+<form method="post">
+    <div asp-validation-summary="All" class="text-danger"></div>
+
+    @await Html.PartialAsync("_Form", Model.Checklist)
+
+    <button class="btn btn-primary" type="submit">Create checklist</button>
+</form>

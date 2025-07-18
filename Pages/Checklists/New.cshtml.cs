@@ -1,16 +1,16 @@
-namespace todolist.Pages.Goals;
+namespace todolist.Pages.Checklists;
 
 public class NewModel(AppDbContext db, UserManager<AppUser> users)
                                             : AppPageModel(db, users)
 {
     [BindProperty]
-    public Goal Goal { get; set; } = null!;
+    public Checklist Checklist { get; set; } = null!;
 
     public IActionResult OnGet()
     {
         string userId = _users.GetUserId(User)!;
 
-        Goal = new() { UserId = userId };
+        Checklist = new() { UserId = userId };
 
         return Page();
     }
@@ -19,12 +19,12 @@ public class NewModel(AppDbContext db, UserManager<AppUser> users)
     {
         if (!ModelState.IsValid) return Page();
 
-        if (Goal.UserId != UserId())
+        if (Checklist.UserId != UserId())
             return BadRequest();
 
-        _db.Goals.Add(Goal);
+        _db.Checklists.Add(Checklist);
         await _db.SaveChangesAsync();
 
-        return LocalRedirect("/Goals/Index");
+        return LocalRedirect("/Checklists/Index");
     }
 }

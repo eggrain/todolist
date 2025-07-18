@@ -7,5 +7,7 @@ public class AppDbContext(DbContextOptions opts) : IdentityDbContext<AppUser>(op
     public DbSet<Goal> Goals { get; set; }
     public DbSet<Project> Projects { get; set; }
     public DbSet<Todo> Todos { get; set; }
-    public DbSet<ProgressNote> ProgressNotes { get; set;  }
+    public DbSet<ProgressNote> ProgressNotes { get; set; }
+    public DbSet<Checklist> Checklists { get; set; }
+    public DbSet<ChecklistTask> ChecklistTasks { get; set;  }
 }

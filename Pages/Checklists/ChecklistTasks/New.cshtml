@@ -1,0 +1,16 @@
+@page "{checklistId}"
+@model todolist.Pages.Checklists.ChecklistTasks.NewModel
+@{
+    ViewData["Title"] = "New task";
+}
+
+<h1>@Model.Checklist.Name - new task</h1>
+
+<form method="post" asp-route-checklistId="@Model.Checklist.Id">
+    <partial name="_Form" for="@Model.Task" />
+
+    <button class="btn btn-outline-secondary"
+            method="post" type="submit">
+        Create task
+    </button>
+</form>

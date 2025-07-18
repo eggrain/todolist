@@ -1,0 +1,67 @@
+@page "{id}"
+@model todolist.Pages.Checklists.ShowModel
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpCtx
+@{
+    ViewData["Title"] = @Model.Checklist.Name;
+    string modalId = "new-todo-for-goal-modal";
+    string returnUrl = HttpCtx.HttpContext!.Request.Path
+                + HttpCtx.HttpContext.Request.QueryString;
+}
+
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb mb-1">
+        <li class="breadcrumb-item">
+            <a asp-page="/Checklists/Index">Checklists</a>
+        </li>
+        <li class="breadcrumb-item active" aria-current="page">
+            <span class="">@Model.Checklist.Name</span>
+        </li>
+    </ol>
+</nav>
+
+<div class="d-flex flex-wrap column-gap-3 row-gap-3 align-items-center mb-4">
+    <h1 class="m-0 d-inline fs-2">
+        @Model.Checklist.Name
+    </h1>
+
+    <a class="btn btn-sm btn-outline-secondary" asp-page="/Checklists/Edit" asp-route-id="@Model.Checklist.Id"
+        title="Edit this checklist">
+        <i class="bi bi-pencil"></i>
+    </a>
+
+    <button class="btn btn-sm btn-outline-secondary" type="javascript"
+        data-bs-toggle="modal"
+        data-bs-target="#@modalId">
+        <i class="bi bi-plus"></i> task
+    </button>
+</div>
+
+<div>
+    <ul class="list-group">
+    @foreach(var task in Model.Checklist.Tasks)
+    {
+        <partial name="~/Pages/Checklists/ChecklistTasks/_TaskListItem.cshtml" model="task" />
+    }
+    </ul>
+</div>
+
+<form method="post" asp-page="/Checklists/ChecklistTasks/New" asp-route-checklistId="@Model.Checklist.Id">
+    <div class="modal fade" id="@modalId" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">New Task</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <input value="@returnUrl" type="hidden" name="returnUrl" />
+                    @await Html.PartialAsync("/Pages/Checklists/ChecklistTasks/_Form.cshtml", @Model.NewTask)
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

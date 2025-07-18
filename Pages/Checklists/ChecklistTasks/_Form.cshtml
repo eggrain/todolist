@@ -1,0 +1,11 @@
+@model todolist.Models.ChecklistTask
+
+<input type="hidden" asp-for="UserId" />
+
+<div asp-validation-summary="All" class="text-danger"></div>
+
+<div class="mb-3">
+    <label asp-for="Description" class="form-label"></label>
+    <textarea asp-for="Description" class="form-control"></textarea>
+    <span asp-validation-for="Description" class="text-danger"></span>
+</div>
