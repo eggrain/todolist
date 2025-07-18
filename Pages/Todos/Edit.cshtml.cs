@@ -69,4 +69,20 @@ public class EditModel(AppDbContext db, UserManager<AppUser> users)
         await _db.SaveChangesAsync();
         return RedirectToReturnUrlOrTodo();
     }
+
+    public async Task<IActionResult> OnPostFailTodoAsync()
+    {
+        Todo? todo = await GetTodo();
+        if (todo == null || !todo.OnDate.HasValue)
+            return RedirectToReturnUrlOrTodo();
+
+        DateOnly onDate = todo.OnDate.Value;
+        DateOnly today  = DateOnly.FromDateTime(DateTime.Now);
+
+        if (onDate <= today)
+            todo.OnDate = today.AddDays(1);
+
+        await _db.SaveChangesAsync();
+        return RedirectToReturnUrlOrTodo();
+    }
 }

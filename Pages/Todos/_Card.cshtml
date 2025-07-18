@@ -6,6 +6,8 @@
     string deleteFormId = $"delete-{Model.Id}";
     string completeTodoId = $"complete-{Model.Id}";
     string uncompleteTodoId = $"uncomplete-{Model.Id}";
+    string failTodoId = $"fail-{Model.Id}";
+
     string borderColor = (Model.Completed == true) ? "border-success" : "border-warning";
     string bgColor = (Model.Completed == true) ? "bg-success" : "bg-warning";
 }
@@ -16,57 +18,66 @@
             @await Html.PartialAsync("/Pages/Todos/_Details.cshtml", Model)
         </div>
     </div>
-    <div class="card-footer d-flex justify-content-between column-gap-3 p-0 align-items-center">
+    <div class="card-footer d-flex flex-wrap gap-1 justify-content-between p-0 align-items-center">
         <div class="d-flex column-gap-1 align-items-center">
 
-            <button form="@deleteFormId" type="submit"
-                    class="btn btn-sm btn-outline-danger border-0 rounded-0"
-                    title="Delete this todo">
+            <button form="@deleteFormId" type="submit" class="btn btn-sm btn-outline-danger border-0 rounded-0"
+                title="Delete this todo">
                 <i class="bi bi-trash"></i>
             </button>
-            <form id="@deleteFormId" method="post"
-                asp-page="/Todos/Delete"
-                asp-route-id="@Model.Id"
-                class="d-inline">
+            <form id="@deleteFormId" method="post" asp-page="/Todos/Delete" asp-route-id="@Model.Id" class="d-inline">
                 <input value="@returnUrl" type="hidden" name="returnUrl" />
             </form>
 
-            @if(Model.Completed)
+            @if (Model.OnDate != null && Model.Completed == false)
             {
-                <button form="@uncompleteTodoId"
-                        class="btn btn-sm btn-outline-danger border-0 rounded-0"
-                        title="Mark incomplete">
+                <button form="@failTodoId" class="btn btn-sm btn-outline-danger border-0 rounded-0"
+                    title="Fail todo">
+                    <i class="bi bi-x-square"></i>
+                </button>
+
+                <form id="@failTodoId" method="post" asp-page="/Todos/Edit" asp-route-id="@Model.Id" class="d-inline"
+                    asp-page-handler="FailTodo">
+                    <input value="@returnUrl" type="hidden" name="returnUrl" />
+                </form>
+            }
+
+
+        </div>
+
+        <div class="d-flex column-gap-1 align-items-center">
+
+            @if (Model.Completed)
+            {
+                <button form="@uncompleteTodoId" class="btn btn-sm btn-outline-danger border-0 rounded-0"
+                    title="Mark incomplete">
                     <i class="bi bi-slash-lg"></i>
                 </button>
 
-                <form id="@uncompleteTodoId" method="post"
-                    asp-page="/Todos/Edit" asp-route-id="@Model.Id" asp-page-handler="UncompleteTodo">
+                <form id="@uncompleteTodoId" method="post" asp-page="/Todos/Edit" asp-route-id="@Model.Id" class="d-inline"
+                    asp-page-handler="UncompleteTodo">
                     <input value="@returnUrl" type="hidden" name="returnUrl" />
                 </form>
             }
             else
             {
-                <button form="@completeTodoId"
-                        class="btn btn-sm btn-outline-success border-0 rounded-0"
-                        title="Mark complete">
+                <button form="@completeTodoId" class="btn btn-sm btn-outline-success border-0 rounded-0"
+                    title="Mark complete">
                     <i class="bi bi-check-square-fill"></i>
                 </button>
 
-                <form id="@completeTodoId" method="post"
-                    asp-page="/Todos/Edit" asp-route-id="@Model.Id" asp-page-handler="CompleteTodo">
+                <form id="@completeTodoId" method="post" asp-page="/Todos/Edit" asp-route-id="@Model.Id" class="d-inline"
+                    asp-page-handler="CompleteTodo">
                     <input value="@returnUrl" type="hidden" name="returnUrl" />
                 </form>
             }
-            
+
+            <a href="#" data-bs-toggle="modal" data-bs-target="#editModal-@Model.Id"
+                class="btn btn-sm btn-outline-secondary border-0 rounded-0" title="Edit this todo">
+                <i class="bi bi-pencil"></i>
+            </a>
 
         </div>
-            
-
-        <a href="#" data-bs-toggle="modal" data-bs-target="#editModal-@Model.Id"
-            class="btn btn-sm btn-outline-secondary border-0 rounded-0"
-            title="Edit this todo">
-            <i class="bi bi-pencil"></i>
-        </a>
     </div>
 </div>
 
@@ -79,7 +90,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form id="@editFormId" method="post" asp-page="/Todos/Edit" asp-route-id="@Model.Id" asp-route-returnUrl="@returnUrl">
+                <form id="@editFormId" method="post" asp-page="/Todos/Edit" asp-route-id="@Model.Id">
                     <input value="@returnUrl" type="hidden" name="returnUrl" />
                     @await Html.PartialAsync("~/Pages/Todos/_Form.cshtml", Model)
                 </form>
