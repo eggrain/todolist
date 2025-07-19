@@ -1,0 +1,42 @@
+@model todolist.Models.ChecklistTask
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpCtx
+@{
+    string returnUrl = HttpCtx.HttpContext!.Request.Path + HttpCtx.HttpContext.Request.QueryString;
+    string borderColor = (Model.Complete == true) ? "border-success" : "border-warning";
+    string bgColor = (Model.Complete == true) ? "bg-success" : "bg-warning";
+
+    string toggleCompleteId = $"toggle-complete-${Model.Id}";
+}
+
+<li class="@bgColor @borderColor 
+    text-dark fw-medium list-group-item d-flex flex-wrap justify-content-between align-items-center">
+
+        <div class="d-flex justify-content-start column-gap-3 row-gap-1 align-items-center">
+            <span>@Model.Description</span>
+
+            <button form="@toggleCompleteId" 
+                class="btn btn-sm btn-outline-dark"
+                type="submit"
+                title="Toggle complete"
+                type="javascript">
+                    <i class="bi bi-check-lg"></i>
+            </button>
+
+            <form id="@toggleCompleteId" method="post" asp-page="/Checklists/ChecklistTasks/Edit"
+                asp-page-handler="ToggleComplete"
+                asp-route-checklistId="@Model.ChecklistId" asp-route-taskId="@Model.Id" class="d-inline"
+                asp-page-handler="ToggleComplete">
+                <input value="@returnUrl" type="hidden" name="returnUrl" />
+            </form>
+        </div>
+
+        <div>
+
+            <a asp-page="/Checklists/ChecklistTasks/Edit" asp-route-checklistId="@Model.ChecklistId"
+                    asp-route-taskId="@Model.Id"
+                    class="btn btn-sm btn-outline-dark"
+                    title="Edit checklist task">
+                <i class="bi bi-pencil"></i>
+            </a>
+        </div>
+</li>

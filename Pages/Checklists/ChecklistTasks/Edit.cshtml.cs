@@ -8,6 +8,8 @@ public class EditModel(AppDbContext db, UserManager<AppUser> users)
 
     public Checklist Checklist { get; set; } = null!;
 
+    [BindProperty] public string? ReturnUrl { get; set; }
+
     public async Task<IActionResult> OnGetAsync(string checklistId, string taskId)
     {
         string userId = UserId();
@@ -37,12 +39,29 @@ public class EditModel(AppDbContext db, UserManager<AppUser> users)
         if (Task.UserId != userId) return BadRequest();
 
         ChecklistTask? task = await _db.ChecklistTasks.FirstOrDefaultAsync(
-            task => task.Id == taskId);
+            task => task.Id == taskId && task.UserId == userId);
         if (task == null) return BadRequest();
         task.Description = Task.Description;
 
         await _db.SaveChangesAsync();
 
+        return LocalRedirect($"/Checklists/Show/{checklistId}");
+    }
+
+    public async Task<IActionResult> OnPostToggleCompleteAsync(string checklistId, string taskId)
+    {
+        string userId = UserId();
+
+        ChecklistTask? task = await _db.ChecklistTasks.FirstOrDefaultAsync(
+            task => task.Id == taskId && task.UserId == userId);
+        if (task == null) return BadRequest();
+
+        task.Complete = !task.Complete;
+
+        await _db.SaveChangesAsync();
+
+        if (ReturnUrl != null)
+            return LocalRedirect(ReturnUrl);
         return LocalRedirect($"/Checklists/Show/{checklistId}");
     }
 }
