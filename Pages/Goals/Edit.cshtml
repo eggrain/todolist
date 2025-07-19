@@ -1,5 +1,10 @@
 @page "{id}"
 @model todolist.Pages.Goals.EditModel
+@{
+    ViewData["Title"] = "Edit goal";
+}
+
+<h1>Edit goal</h1>
 
 <form method="post">
     <div asp-validation-summary="All" class="text-danger"></div>

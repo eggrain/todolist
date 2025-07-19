@@ -10,7 +10,8 @@ public class EditModel(AppDbContext db, UserManager<AppUser> users)
     {
         string userId = UserId();
 
-        Project? project = await _db.Projects.FirstOrDefaultAsync(p => p.Id == id && p.UserId == userId);
+        Project? project = await _db.Projects
+            .FirstOrDefaultAsync(p => p.Id == id && p.UserId == userId);
         if (project == null) return NotFound();
 
         Project = project;

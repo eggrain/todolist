@@ -8,9 +8,10 @@ public class EditModel(AppDbContext db, UserManager<AppUser> users)
 
     public async Task<IActionResult> OnGetAsync(string id)
     {
-        string userId = _users.GetUserId(User)!;
+        string userId = UserId();
 
-        Goal? goal = await _db.Goals.FirstOrDefaultAsync(g => g.Id == id);
+        Goal? goal = await _db.Goals
+            .FirstOrDefaultAsync(g => g.Id == id && g.UserId == userId);
         if (goal == null) return NotFound();
 
         Goal = goal;
@@ -22,9 +23,10 @@ public class EditModel(AppDbContext db, UserManager<AppUser> users)
     {
         if (!ModelState.IsValid) return Page();
 
-        string userId = _users.GetUserId(User)!;
+        string userId = UserId();
 
-        Goal? goal = await _db.Goals.FirstOrDefaultAsync(g => g.Id == id);
+        Goal? goal = await _db.Goals
+            .FirstOrDefaultAsync(g => g.Id == id && g.UserId == userId);
         if (goal == null) return NotFound();
 
         goal.Name = Goal.Name;
