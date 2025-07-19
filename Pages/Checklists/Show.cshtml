@@ -37,8 +37,8 @@
 </div>
 
 <div>
-    <ul class="list-group">
-    @foreach(var task in Model.Checklist.Tasks)
+    <ul class="list-group w-auto d-inline-block">
+    @foreach(ChecklistTask task in Model.Checklist.Tasks)
     {
         <partial name="~/Pages/Checklists/ChecklistTasks/_TaskItem.cshtml" model="task" />
     }

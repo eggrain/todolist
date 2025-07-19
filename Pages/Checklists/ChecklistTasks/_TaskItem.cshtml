@@ -5,38 +5,48 @@
     string borderColor = (Model.Complete == true) ? "border-success" : "border-warning";
     string bgColor = (Model.Complete == true) ? "bg-success" : "bg-warning";
 
-    string toggleCompleteId = $"toggle-complete-${Model.Id}";
+    string toggleCompleteId = $"toggle-complete-task-${Model.Id}";
+    string deleteId = $"delete-task-${Model.Id}";
 }
 
 <li class="@bgColor @borderColor 
-    text-dark fw-medium list-group-item d-flex flex-wrap justify-content-between align-items-center">
+    text-dark fw-medium list-group-item d-flex flex-wrap column-gap-3 justify-content-between align-items-center py-0 pe-0 rounded-0">
 
-        <div class="d-flex justify-content-start column-gap-3 row-gap-1 align-items-center">
+        <div class="d-flex column-gap-2 align-items-center">
             <span>@Model.Description</span>
-
-            <button form="@toggleCompleteId" 
-                class="btn btn-sm btn-outline-dark"
-                type="submit"
-                title="Toggle complete"
-                type="javascript">
-                    <i class="bi bi-check-lg"></i>
-            </button>
-
-            <form id="@toggleCompleteId" method="post" asp-page="/Checklists/ChecklistTasks/Edit"
-                asp-page-handler="ToggleComplete"
-                asp-route-checklistId="@Model.ChecklistId" asp-route-taskId="@Model.Id" class="d-inline"
-                asp-page-handler="ToggleComplete">
-                <input value="@returnUrl" type="hidden" name="returnUrl" />
-            </form>
         </div>
 
-        <div>
+        <div class="d-flex align-items-center column-gap-1 bg-dark">
+
+            <button form="@toggleCompleteId" 
+                class="btn btn-sm btn-outline-secondary rounded-0 border-0"
+                type="submit"
+                title='@(Model.Complete ? "Uncomplete task" : "Complete task")'
+                type="javascript">
+                    <i class='@(Model.Complete ? "bi bi-arrow-counterclockwise" : "bi bi-check-lg")'></i>
+            </button>
 
             <a asp-page="/Checklists/ChecklistTasks/Edit" asp-route-checklistId="@Model.ChecklistId"
                     asp-route-taskId="@Model.Id"
-                    class="btn btn-sm btn-outline-dark"
+                    class="btn btn-sm btn-outline-secondary rounded-0 border-0"
                     title="Edit checklist task">
                 <i class="bi bi-pencil"></i>
             </a>
+
+            <button form="@deleteId" type="submit" class="btn btn-sm btn-outline-danger rounded-0 border-0 ms-4"
+                title="Delete task">
+                <i class="bi bi-trash"></i>
+            </button>
         </div>
 </li>
+
+<form id="@deleteId" method="post" asp-page="/Checklists/ChecklistTasks/Delete" asp-route-id="@Model.Id" class="d-inline">
+    <input value="@returnUrl" type="hidden" name="returnUrl" />
+</form>
+
+<form id="@toggleCompleteId" method="post" asp-page="/Checklists/ChecklistTasks/Edit"
+    asp-page-handler="ToggleComplete"
+    asp-route-checklistId="@Model.ChecklistId" asp-route-taskId="@Model.Id" class="d-inline"
+    asp-page-handler="ToggleComplete">
+    <input value="@returnUrl" type="hidden" name="returnUrl" />
+</form>
