@@ -28,6 +28,7 @@ public class EditModel(AppDbContext db, UserManager<AppUser> users)
         if (project == null) return NotFound();
 
         project.Name = Project.Name;
+        project.PurposeStatement = Project.PurposeStatement;
         await _db.SaveChangesAsync();
 
         return LocalRedirect($"/Projects/Show/{Project.Id}");

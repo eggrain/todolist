@@ -1,5 +1,3 @@
-using System.ComponentModel.DataAnnotations.Schema;
-
 namespace todolist.Models;
 
 public class Todo : Entity

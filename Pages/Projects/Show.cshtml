@@ -18,7 +18,7 @@
   </ol>
 </nav>
 
-<div class="d-inline-flex column-gap-3 align-items-end mb-4">
+<div class="d-inline-flex column-gap-3 align-items-end">
     <h1 class="m-0 d-inline fs-2">
         @Model.Project.Name
     </h1>
@@ -35,6 +35,13 @@
         data-bs-target="#@modalId">
         <i class="bi bi-plus"></i> todo
     </button>
+</div>
+
+<div class="my-2">
+    <h2 class="fs-4">Purpose:</h2>
+    <p>
+        @Model.Project.PurposeStatement
+    </p>
 </div>
 
 <div class="d-flex flex-wrap column-gap-3 row-gap-3 my-2">

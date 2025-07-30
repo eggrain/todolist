@@ -1,5 +1,3 @@
-using Microsoft.AspNetCore.Identity;
-
 namespace todolist.Models;
 
 public class AppUser : IdentityUser

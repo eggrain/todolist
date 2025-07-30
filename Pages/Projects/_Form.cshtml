@@ -1,9 +1,17 @@
 @model todolist.Models.Project
 
-<input type="hidden" asp-for="UserId" />
-
 <div class="my-2">
-    <label asp-for="Name" class="form-label"></label>
-    <input asp-for="Name" class="form-control" />
-    <span asp-validation-for="Name" class="text-danger"></span>
+    <input type="hidden" asp-for="UserId" />
+
+    <div class="my-2">
+        <label asp-for="Name" class="form-label"></label>
+        <input asp-for="Name" class="form-control" />
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+
+    <div class="my-2">
+        <label asp-for="PurposeStatement" class="form-label">Statement of purpose</label>
+        <textarea asp-for="PurposeStatement" class="form-control" rows=10></textarea>
+        <span asp-validation-for="PurposeStatement" class="text-danger"></span>
+    </div>
 </div>
