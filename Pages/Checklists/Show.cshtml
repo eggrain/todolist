@@ -19,7 +19,7 @@
     </ol>
 </nav>
 
-<div class="d-flex flex-wrap column-gap-3 row-gap-3 align-items-center mb-4">
+<div class="d-flex flex-wrap column-gap-3 row-gap-3 align-items-center my-2">
     <h1 class="m-0 d-inline fs-2">
         @Model.Checklist.Name
     </h1>
@@ -37,7 +37,8 @@
 </div>
 
 <div>
-    <ul class="list-group w-auto d-inline-block">
+    <h2 class="fs-3">Tasks:</h2>
+    <ul class="list-group d-inline-block w-100">
     @foreach(ChecklistTask task in Model.Checklist.Tasks)
     {
         <partial name="~/Pages/Checklists/ChecklistTasks/_TaskItem.cshtml" model="task" />
