@@ -48,7 +48,6 @@
 
 <form id="@toggleCompleteId" method="post" asp-page="/Checklists/ChecklistTasks/Edit"
     asp-page-handler="ToggleComplete"
-    asp-route-checklistId="@Model.ChecklistId" asp-route-taskId="@Model.Id" class="d-inline"
-    asp-page-handler="ToggleComplete">
+    asp-route-checklistId="@Model.ChecklistId" asp-route-taskId="@Model.Id" class="d-inline">
     <input value="@returnUrl" type="hidden" name="returnUrl" />
 </form>

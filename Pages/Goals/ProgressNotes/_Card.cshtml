@@ -1,4 +1,7 @@
 @model todolist.Pages.Goals.ProgressNotes.CardModel;
+@{
+    string deleteId = $"delete-note-{Model.Note.Id}";
+}
 
 <div class="card rounded-0">
     <div class="card-body">
@@ -7,10 +10,19 @@
             @Model.Note.CreatedAt.ToLocalTime().ToString("MMMM d, yyyy 'at' h:mm tt")
         </small>
     </div>
-    <div class="card-footer">
+    <div class="card-footer d-flex justify-content-start column-gap-5">
+        <button type="submit" form="@deleteId" class="btn btn-sm btn-outline-danger" title="Delete note">
+            Delete note
+        </button>
         <a asp-page="/Goals/ProgressNotes/Edit" asp-route-goalId="@Model.GoalId" asp-route-noteId="@Model.Note.Id"
-            class="btn btn-sm btn-outline-primary">
+            class="btn btn-sm btn-outline-primary" title="Edit note">
             Edit note
         </a>
     </div>
 </div>
+
+<form id="@deleteId" asp-page="/Goals/ProgressNotes/Edit"
+    asp-page-handler="Delete"
+    asp-route-goalId="@Model.GoalId" asp-route-noteId="@Model.Note.Id" class="d-inline">
+
+</form>
