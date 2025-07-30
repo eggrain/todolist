@@ -11,7 +11,7 @@ public class ShowModel(AppDbContext db, UserManager<AppUser> users)
         string userId = _users.GetUserId(User)!;
 
         Checklist? checklist = await _db.Checklists
-                .Include(g => g.Tasks)
+                .Include(g => g.Tasks.OrderBy(t => t.Order))
                 .FirstOrDefaultAsync(g => g.Id == id && g.UserId == userId);
         if (checklist == null) return NotFound();
 

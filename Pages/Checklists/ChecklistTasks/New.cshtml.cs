@@ -33,9 +33,11 @@ public class NewModel(AppDbContext db, UserManager<AppUser> users)
         string userId = UserId();
         if (Task.UserId != userId) return BadRequest();
 
-        Checklist? checklist = await _db.Checklists.FirstOrDefaultAsync(
-            cl => cl.Id == checklistId && cl.UserId == userId);
+        Checklist? checklist = await _db.Checklists.Include(cl => cl.Tasks).
+            FirstOrDefaultAsync(cl => cl.Id == checklistId && cl.UserId == userId);
         if (checklist == null) return BadRequest();
+
+        Task.Order = checklist.Tasks.Count;
 
         _db.ChecklistTasks.Add(Task);
         await _db.SaveChangesAsync();

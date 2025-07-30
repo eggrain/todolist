@@ -10,7 +10,11 @@
 }
 
 <li class="@bgColor @borderColor
-    text-dark fw-medium list-group-item d-flex flex-wrap column-gap-3 justify-content-between align-items-center p-0 rounded-0">
+    text-dark fw-medium list-group-item d-flex flex-wrap column-gap-3 justify-content-between align-items-center p-0 rounded-0"
+    draggable="true" data-id="@Model.Id" data-index="@Model.Order"
+    ondragstart="handleDragStart(event)"
+    ondragover="handleDragOver(event)"
+    ondrop="handleDrop(event)">
 
     <div class="bg-dark">
         <button form="@deleteId" type="submit" class="btn btn-sm btn-outline-danger rounded-0 border-0"

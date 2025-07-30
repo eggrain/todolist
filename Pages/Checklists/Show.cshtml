@@ -66,3 +66,39 @@
         </div>
     </div>
 </form>
+
+<form method="post" id="reorderForm" asp-page="/Checklists/Edit"
+    asp-page-handler="ReorderTasks" asp-route-id="@Model.Checklist.Id">
+    <input type="hidden" name="taskId" />
+    <input type="hidden" name="newOrder" />
+</form>
+
+@section Scripts {
+<script>
+    let draggedId = null;
+
+    function handleDragStart(e) {
+        draggedId = e.target.getAttribute("data-id");
+    }
+
+    function handleDragOver(e) {
+        e.preventDefault();
+    }
+
+    function handleDrop(e) {
+        e.preventDefault();
+
+        const target = e.target.closest("li");
+        if (!target || draggedId === null) return;
+
+        const taskId = draggedId;
+        const newOrder = target.getAttribute("data-index");
+
+        const form = document.getElementById("reorderForm");
+        form.querySelector('[name="taskId"]').value = taskId;
+        form.querySelector('[name="newOrder"]').value = newOrder;
+
+        form.submit();
+    }
+</script>
+}
