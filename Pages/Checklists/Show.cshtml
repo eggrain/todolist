@@ -34,6 +34,12 @@
         data-bs-target="#@modalId">
         <i class="bi bi-plus"></i> task
     </button>
+
+    <a class="btn btn-sm btn-outline-secondary" asp-page="/Checklists/Print" asp-route-id="@Model.Checklist.Id"
+        title="Print checklist">
+        <i class="bi bi-printer"></i>
+
+    </a>
 </div>
 
 <div>

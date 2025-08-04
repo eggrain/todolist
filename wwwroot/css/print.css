@@ -1,0 +1,43 @@
+@page {
+  margin: 1in;
+}
+
+nav, .btn, footer {
+  display: none !important;
+}
+
+.container {
+  width: 100% !important;
+  max-width: none !important;
+}
+
+ul.list-group {
+  margin: 0;
+  padding: 0;
+}
+
+ul.list-group .list-group-item {
+  font-size: 12pt;
+  border: none;
+  padding: 0.25rem 0;
+}
+
+.print-only {
+  display: none;
+}
+
+@media print {
+  .print-only {
+    display: block !important;
+  }
+
+  .do-not-print {
+    display: none;
+  }
+}
+
+.form-check-input {
+  width: 1.5rem !important;
+  height: 1.5rem !important;
+  border: 1px solid #000 !important;
+}
