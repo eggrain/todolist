@@ -5,7 +5,7 @@
     ViewData["Title"] = @Model.Checklist.Name;
     string modalId = "new-todo-for-goal-modal";
     string returnUrl = HttpCtx.HttpContext!.Request.Path
-                + HttpCtx.HttpContext.Request.QueryString;
+    + HttpCtx.HttpContext.Request.QueryString;
 }
 
 <nav aria-label="breadcrumb">
@@ -19,36 +19,46 @@
     </ol>
 </nav>
 
-<div class="d-flex flex-wrap column-gap-3 row-gap-3 align-items-center my-2">
-    <h1 class="m-0 d-inline fs-2">
-        @Model.Checklist.Name
-    </h1>
+<div class="d-flex flex-wrap column-gap-3 justify-content-between row-gap-3 align-items-center my-2">
+    <div class="d-flex flex-wrap gap-3 align-items-center">
+        <h1 class="m-0 d-inline fs-2">
+            @Model.Checklist.Name
+        </h1>
 
-    <a class="btn btn-sm btn-outline-secondary" asp-page="/Checklists/Edit" asp-route-id="@Model.Checklist.Id"
-        title="Edit this checklist">
-        <i class="bi bi-pencil"></i>
-    </a>
+        <a class="btn btn-sm btn-outline-secondary" asp-page="/Checklists/Edit" asp-route-id="@Model.Checklist.Id"
+            title="Edit this checklist">
+            <i class="bi bi-pencil"></i>
+        </a>
 
-    <button class="btn btn-sm btn-outline-secondary" type="javascript"
-        data-bs-toggle="modal"
-        data-bs-target="#@modalId">
-        <i class="bi bi-plus"></i> task
-    </button>
+        <button class="btn btn-sm btn-outline-secondary" type="javascript" data-bs-toggle="modal"
+            data-bs-target="#@modalId">
+            <i class="bi bi-plus"></i> task
+        </button>
+    </div>
 
-    <a class="btn btn-sm btn-outline-secondary" asp-page="/Checklists/Print" asp-route-id="@Model.Checklist.Id"
-        title="Print checklist">
-        <i class="bi bi-printer"></i>
+    <div class="d-flex align-items-center gap-5">
+        <form method="post" asp-page="/Checklists/Delete" asp-route-id="@Model.Checklist.Id" style="display:inline">
+            <button class="btn btn-sm btn-outline-danger" type="submit" title="Delete checklist"
+                onclick="return confirm('Delete this checklist?')">
+                <i class="bi bi-trash"></i>
+            </button>
+        </form>
 
-    </a>
+
+        <a class="btn btn-sm btn-outline-secondary" asp-page="/Checklists/Print" asp-route-id="@Model.Checklist.Id"
+            title="Print checklist">
+            <i class="bi bi-printer"></i>
+        </a>
+    </div>
 </div>
 
 <div>
     <h2 class="fs-3">Tasks:</h2>
     <ul class="list-group d-inline-block w-100">
-    @foreach(ChecklistTask task in Model.Checklist.Tasks)
-    {
-        <partial name="~/Pages/Checklists/ChecklistTasks/_TaskItem.cshtml" model="task" />
-    }
+        @foreach (ChecklistTask task in Model.Checklist.Tasks)
+        {
+            <partial name="~/Pages/Checklists/ChecklistTasks/_TaskItem.cshtml" model="task" />
+        }
     </ul>
 </div>
 
@@ -73,38 +83,38 @@
     </div>
 </form>
 
-<form method="post" id="reorderForm" asp-page="/Checklists/Edit"
-    asp-page-handler="ReorderTasks" asp-route-id="@Model.Checklist.Id">
+<form method="post" id="reorderForm" asp-page="/Checklists/Edit" asp-page-handler="ReorderTasks"
+    asp-route-id="@Model.Checklist.Id">
     <input type="hidden" name="taskId" />
     <input type="hidden" name="newOrder" />
 </form>
 
 @section Scripts {
-<script>
-    let draggedId = null;
+    <script>
+        let draggedId = null;
 
-    function handleDragStart(e) {
-        draggedId = e.target.getAttribute("data-id");
-    }
+        function handleDragStart(e) {
+            draggedId = e.target.getAttribute("data-id");
+        }
 
-    function handleDragOver(e) {
-        e.preventDefault();
-    }
+        function handleDragOver(e) {
+            e.preventDefault();
+        }
 
-    function handleDrop(e) {
-        e.preventDefault();
+        function handleDrop(e) {
+            e.preventDefault();
 
-        const target = e.target.closest("li");
-        if (!target || draggedId === null) return;
+            const target = e.target.closest("li");
+            if (!target || draggedId === null) return;
 
-        const taskId = draggedId;
-        const newOrder = target.getAttribute("data-index");
+            const taskId = draggedId;
+            const newOrder = target.getAttribute("data-index");
 
-        const form = document.getElementById("reorderForm");
-        form.querySelector('[name="taskId"]').value = taskId;
-        form.querySelector('[name="newOrder"]').value = newOrder;
+            const form = document.getElementById("reorderForm");
+            form.querySelector('[name="taskId"]').value = taskId;
+            form.querySelector('[name="newOrder"]').value = newOrder;
 
-        form.submit();
-    }
-</script>
+            form.submit();
+        }
+    </script>
 }

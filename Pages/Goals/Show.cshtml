@@ -19,26 +19,38 @@
     </ol>
 </nav>
 
-<div class="d-flex flex-wrap column-gap-3 row-gap-3 align-items-center mb-4">
-    <h1 class="m-0 d-inline fs-2">
-        @Model.Goal.Name
-    </h1>
+<div class="d-flex flex-wrap column-gap-3 row-gap-3 align-items-center justify-content-between mb-4">
+    <div class="d-flex gap-3 flex-wrap align-items-center">
+        <h1 class="m-0 d-inline fs-2">
+            @Model.Goal.Name
+        </h1>
 
-    <a class="btn btn-sm btn-outline-secondary" asp-page="/Goals/Edit" asp-route-id="@Model.Goal.Id"
-        title="Edit this goal">
-        <i class="bi bi-pencil"></i>
-    </a>
+        <a class="btn btn-sm btn-outline-secondary" asp-page="/Goals/Edit" asp-route-id="@Model.Goal.Id"
+            title="Edit this goal">
+            <i class="bi bi-pencil"></i>
+        </a>
 
-    <a asp-page="/Goals/ProgressNotes/New" asp-route-goalId="@Model.Goal.Id"
-             class="btn btn-sm btn-outline-secondary">
-        <i class="bi bi-plus-lg"></i> progress note
-    </a>
+        <a asp-page="/Goals/ProgressNotes/New" asp-route-goalId="@Model.Goal.Id"
+                class="btn btn-sm btn-outline-secondary">
+            <i class="bi bi-plus-lg"></i> progress note
+        </a>
+    
+        <button class="btn btn-sm btn-outline-secondary" type="javascript"
+            data-bs-toggle="modal"
+            data-bs-target="#@modalId">
+            <i class="bi bi-plus"></i> todo
+        </button>
+    </div>
 
-    <button class="btn btn-sm btn-outline-secondary" type="javascript"
-        data-bs-toggle="modal"
-        data-bs-target="#@modalId">
-        <i class="bi bi-plus"></i> todo
-    </button>
+    <div class="d-flex align-items-center">
+
+        <form method="post" asp-page="/Goals/Delete" asp-route-id="@Model.Goal.Id" style="display:inline"> 
+            <button class="btn btn-sm btn-outline-danger" type="submit" title="Delete goal"
+                onclick="return confirm('Delete this goal?')">
+                <i class="bi bi-trash"></i>
+            </button>
+        </form>
+    </div>
 </div>
 
 <div class="d-flex flex-wrap-reverse gap-3 mb-4">
