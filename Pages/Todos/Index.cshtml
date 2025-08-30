@@ -11,25 +11,26 @@
     </a>
 </h1>
 
-<form method="get" class="d-flex align-items-center gap-2 my-3">
-    <label class="form-label mb-0">Page:</label>
-    <input type="number" name="pageNum" value="@Model.PageNum" min="1" class="form-control" style="width:90px;" />
+<form method="get" class="d-flex align-items-center column-gap-2 row-gap-3 my-3 flex-wrap">
+    <span class="ms-2 small text-muted">
+        @Model.TotalCount items · @Model.TotalPages pages
+    </span>
 
-    <label class="form-label mb-0">Size:</label>
-    <input type="number" name="pageSize" value="@Model.PageSize" min="1" max="50" class="form-control" style="width:90px;" />
+    <label class="form-label mb-0" for="pageNum">Page:</label>
+    <input id="pageNum" type="number" name="pageNum" value="@Model.PageNum" min="1" class="form-control" style="width:90px;" />
+
+    <label class="form-label mb-0" for="pageNum">Page size:</label>
+    <input id="pageSize" type="number" name="pageSize" value="@Model.PageSize" min="1" max="50" class="form-control" style="width:90px;" />
 
     <input type="search" name="search" value="@Model.Search" class="form-control"
          placeholder="Search todos…" style="max-width:220px;" />
 
     <div class="form-check ms-2">
         <input class="form-check-input" asp-for="ShowCompleted" />
-        <label class="form-check-label" asp-for="ShowCompleted">Show completed</label>
+        <label class="form-check-label" asp-for="ShowCompleted">Include completed</label>
     </div>
 
-    <button type="submit" class="btn btn-primary">Go</button>
-    <span class="ms-2 small text-muted">
-        @Model.TotalCount items · @Model.TotalPages pages
-    </span>
+    <button type="submit" class="btn btn-primary">Refresh</button>
 </form>
 
 <div class="my-4 d-flex flex-wrap row-gap-3 column-gap-3">

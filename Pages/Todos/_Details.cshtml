@@ -51,4 +51,10 @@
 {
     <span class="">@Model.EndTime</span>
 }
+@if(Model.StartTime != null && Model.EndTime != null)
+{
+    var duration = Model.EndTime - Model.StartTime;
+
+    <span>(@($"{(int)duration.Value.TotalHours}h {duration.Value.Minutes}m"))</span>
+}
 </p>
