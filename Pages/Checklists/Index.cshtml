@@ -4,7 +4,7 @@
     ViewData["Title"] = "Checklists";
 }
 
-<span class="d-flex flex-wrap gap-3 align-items-center">
+<span class="d-flex column-gap-3 align-items-center">
     <h1>Checklists</h1>
 
     <a asp-page="/Checklists/New" class="btn btn-outline-secondary">
@@ -12,9 +12,14 @@
     </a>
 </span>
 
-<div class="my-4 d-flex flex-wrap gap-3 align-items-center">
-    @foreach(Checklist checklist in Model.Checklists)
+<div class="list-group my-4">
+    @foreach (var checklist in Model.Checklists)
     {
-        <partial name="~/Pages/Checklists/_Card.cshtml" model="checklist" />
+        <a asp-page="/Checklists/Show" asp-route-id="@checklist.Id" 
+           class="list-group-item list-group-item-action" role="button">
+            <span class="text-primary">
+                <i class="bi bi-list-check"></i> @checklist.Name
+            </span>
+        </a>
     }
 </div>

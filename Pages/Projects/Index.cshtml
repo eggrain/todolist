@@ -18,7 +18,7 @@
     <a asp-page="/Projects/Show" asp-route-id="@proj.Id" class="list-group-item list-group-item-action"
         role="button">
         <span class="text-primary"><i class="bi bi-folder2"></i> @proj.Name</span>
-        <span class="ms-4">@proj.Todos.Count todos</span>
+        <span class="ms-4">@(proj.Todos.Count(t => !t.Completed)) incomplete todos</span>
     </a>
 }
 </div>
