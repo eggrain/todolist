@@ -1,0 +1,29 @@
+@model todolist.Models.Todo
+@{
+    var modalId    = (string?)ViewData["ModalId"]    ?? $"editModal-{Model.Id}";
+    var editFormId = (string?)ViewData["EditFormId"] ?? $"edit-form-{Model.Id}";
+    var returnUrl  = (string?)ViewData["ReturnUrl"]  ?? (Context.Request.Path + Context.Request.QueryString);
+}
+
+<div class="modal fade text-start" id="@modalId" tabindex="-1" aria-labelledby="@($"{modalId}-label")"
+     aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="@($"{modalId}-label")">Edit Todo</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="@editFormId" method="post" asp-page="/Todos/Edit" asp-route-id="@Model.Id">
+                    <input value="@returnUrl" type="hidden" name="returnUrl" />
+                    @await Html.PartialAsync("~/Pages/Todos/_Form.cshtml", Model)
+                </form>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button form="@editFormId" type="submit" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

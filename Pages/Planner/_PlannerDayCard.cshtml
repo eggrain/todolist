@@ -61,17 +61,18 @@
             </div>
         </div>
 
-        <div class="my-2 d-flex flex-wrap column-gap-3 row-gap-3">
-            @if(completed.Count != 0)
+        @if(completed.Count != 0)
+        {
+            <ul class="list-group border border-success rounded-0 mt-2">
+            @foreach(Todo todo in completed)
             {
-                <ul class="list-group border border-success rounded-0">
-                @foreach(Todo todo in completed)
-                {
-                    @await Html.PartialAsync("/Pages/Todos/_ListItem.cshtml", todo)
-                }
-                </ul>
+                @await Html.PartialAsync("/Pages/Todos/_ListItem.cshtml", todo)
             }
- 
+            </ul>
+        }
+
+        <div class="my-2 d-flex flex-wrap column-gap-3 row-gap-3">
+
             @if(incompleted.Count != 0)
             {
                 @foreach(Todo todo in incompleted)
