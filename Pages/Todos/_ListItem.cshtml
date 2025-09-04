@@ -20,9 +20,12 @@
         <form id="@deleteFormId" method="post" asp-page="/Todos/Delete" asp-route-id="@Model.Id" class="d-inline">
             <input value="@returnUrl" type="hidden" name="returnUrl" />
         </form>
-        <p class="m-0 d-flex flex-wrap gap-1 justify-content-around flex-grow-1">
+        <p class="m-0 d-flex flex-wrap column-gap-3 row-gap-1 justify-content-center flex-grow-1">
             <span class="">@Model.Description</span>
-            <span>@await Html.PartialAsync("/Pages/Todos/_TimeDetails.cshtml", Model)</span>
+            @if(Model.StartTime != null || Model.EndTime != null)
+            {
+                <span>@await Html.PartialAsync("/Pages/Todos/_TimeDetails.cshtml", Model)</span>
+            }
         </p>
     </div>
 
