@@ -1,0 +1,20 @@
+@model Models.Todo
+
+@if(Model.StartTime != null)
+{
+    <span class="">@Model.StartTime</span>
+}
+@if(Model.StartTime != null || Model.EndTime != null)
+{
+    <span> - </span>
+}
+@if(Model.EndTime != null || Model.EndTime != null)
+{
+    <span class="">@Model.EndTime</span>
+}
+@if(Model.StartTime != null && Model.EndTime != null)
+{
+    var duration = Model.EndTime - Model.StartTime;
+
+    <span>(@($"{(int)duration.Value.TotalHours}h {duration.Value.Minutes}m"))</span>
+}
