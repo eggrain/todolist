@@ -1,14 +1,16 @@
 @model todolist.Models.Todo
-
 @{
+    // If caller didn't provide a prefix, default to "Todo"
+    if (string.IsNullOrEmpty(ViewData.TemplateInfo.HtmlFieldPrefix))
+    {
+        ViewData.TemplateInfo.HtmlFieldPrefix = "Todo";
+    }
     ViewData["Title"] = "New todo";
 }
 
 <div asp-validation-summary="All" class="text-danger"></div>
 
-<input type="hidden" name="UserId" value="@Model.UserId" />
-<input type="hidden" name="ProjectId" value="@Model.ProjectId" />
-<input type="hidden" name="GoalId" value="@Model.GoalId" />
+<input type="hidden" name="Todo.UserId" value="@Model.UserId" />
 
 <div class="mb-2">
     <label class="form-label" asp-for="Description"></label>
@@ -38,4 +40,30 @@
     <label class="form-check-label" asp-for="Completed">Complete</label>
     <input class="form-check-input" asp-for="Completed" type="checkbox"></label>
     <span asp-validation-for="Completed" class="text-danger"></span>
+</div>
+
+<div class="row g-3 my-4">
+    <div class="col-md-6">
+        <label class="form-label" for="projectSelect">Project (optional)</label>
+        <select id="projectSelect"
+                asp-for="ProjectId"
+                class="form-select"
+                disabled
+                data-selected-project-id="@Model.ProjectId">
+        <option value="">— None —</option>
+        </select>
+        <span asp-validation-for="ProjectId" class="text-danger"></span>
+    </div>
+
+    <div class="col-md-6">
+        <label class="form-label" for="goalSelect">Goal (optional)</label>
+        <select id="goalSelect"
+                asp-for="GoalId"
+                class="form-select"
+                disabled
+                data-selected-goal-id="@Model.GoalId">
+        <option value="">— None —</option>
+        </select>
+        <span asp-validation-for="GoalId" class="text-danger"></span>
+    </div>
 </div>

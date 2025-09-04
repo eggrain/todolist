@@ -1,10 +1,13 @@
 @page "{id}"
 @model Pages.Todos.EditModel
+@{
+    ViewData["Title"] = "Edit Todo";
+}
 
-<h1>Edit todo</h1>
+<h1>Edit Todo</h1>
 
 <div>
-    <form method="post">
+    <form method="post" data-todo-form>
         @await Html.PartialAsync("_Form", Model.Todo)
         <button type="submit" class="btn btn-primary">Update todo</button>
     </form>
