@@ -3,7 +3,7 @@
 @{
     string isoDate   = Model.Date.ToString("yyyy-MM-dd");
     string modalId   = $"todoModal-{isoDate}";
-    Todo todoModel = new Models.Todo { UserId = Model.UserId, OnDate = Model.Date };
+    Todo newTodo = new Models.Todo { UserId = Model.UserId, OnDate = Model.Date };
     string returnUrl = HttpCtx.HttpContext!.Request.Path + HttpCtx.HttpContext.Request.QueryString;
 
     List<Todo> completed = [];
@@ -22,26 +22,10 @@
     }
 }
 
-<form method="post" asp-page="/Todos/New" data-todo-form>
-    <div class="modal fade" id="@modalId" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">New Todo</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <input value="@returnUrl" type="hidden" name="returnUrl" />
-                    @await Html.PartialAsync("/Pages/Todos/_Form.cshtml", todoModel)
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Save changes</button>
-                </div>
-            </div>
-        </div>
-    </div>
-</form>
+@await Html.PartialAsync(
+    "~/Pages/Todos/_NewModal.cshtml",
+    (modalId: modalId, returnUrl: returnUrl, Todo: newTodo)
+)
 
 <div class="card text-center w-100 h-100 rounded-0 border" style="min-height: 9rem">
     <div class="card-body">
