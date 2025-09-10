@@ -27,6 +27,7 @@ public class PlannerModel
         DateOnly start = DaysOfWeek.First();
         DateOnly end = DaysOfWeek.Last().AddDays(1);
         List<Todo> todosThisWeek = await _db.Todos
+            .Include(t => t.Goal).Include(t => t.Project)
             .Where(t => t.OnDate >= start && t.OnDate < end)
             .ToListAsync();
 
