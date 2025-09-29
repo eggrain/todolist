@@ -16,7 +16,7 @@ ul.list-group {
   padding: 0;
 }
 
-ul.list-group .list-group-item {
+.list-group-item {
   font-size: 12pt;
   border: none;
   padding: 0.25rem 0;
