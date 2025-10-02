@@ -8,7 +8,7 @@ public class ShowModel(AppDbContext db, UserManager<AppUser> users)
 
     public async Task<IActionResult> OnGetAsync(string id)
     {
-        string userId = _users.GetUserId(User)!;
+        string userId = UserId();
 
         Checklist? checklist = await _db.Checklists
                 .Include(g => g.Tasks.OrderBy(t => t.Order))
@@ -24,4 +24,33 @@ public class ShowModel(AppDbContext db, UserManager<AppUser> users)
 
         return Page();
     }
+
+    public async Task<IActionResult> OnPostResetAsync(string id)
+    {
+        string userId = UserId();
+
+        bool ownsChecklist = await _db.Checklists.AnyAsync(c => c.Id == id && c.UserId == userId);
+        if (!ownsChecklist) return NotFound();
+
+        await _db.ChecklistTasks
+            .Where(t => t.ChecklistId == id && t.UserId == userId)
+            .ExecuteUpdateAsync(updates => updates.SetProperty(t => t.Complete, false));
+
+        return RedirectToPage(new { id });
+    }
+
+    public async Task<IActionResult> OnPostCompleteAsync(string id)
+    {
+        string userId = UserId();
+
+        bool ownsChecklist = await _db.Checklists.AnyAsync(c => c.Id == id && c.UserId == userId);
+        if (!ownsChecklist) return NotFound();
+
+        await _db.ChecklistTasks
+            .Where(t => t.ChecklistId == id && t.UserId == userId)
+            .ExecuteUpdateAsync(updates => updates.SetProperty(t => t.Complete, true));
+
+        return RedirectToPage(new { id });
+    }
+
 }

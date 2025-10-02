@@ -27,28 +27,43 @@
 
         <a class="btn btn-sm btn-outline-secondary" asp-page="/Checklists/Edit" asp-route-id="@Model.Checklist.Id"
             title="Edit this checklist">
-            <i class="bi bi-pencil"></i>
+            <i class="bi bi-pencil"></i> edit
         </a>
 
         <button class="btn btn-sm btn-outline-secondary" type="javascript" data-bs-toggle="modal"
             data-bs-target="#@modalId">
             <i class="bi bi-plus"></i> task
         </button>
-    </div>
 
-    <div class="d-flex align-items-center gap-5">
-        <form method="post" asp-page="/Checklists/Delete" asp-route-id="@Model.Checklist.Id" style="display:inline">
-            <button class="btn btn-sm btn-outline-danger" type="submit" title="Delete checklist"
-                onclick="return confirm('Delete this checklist?')">
-                <i class="bi bi-trash"></i>
+        <a class="btn btn-sm btn-outline-secondary" asp-page="/Checklists/Print" asp-route-id="@Model.Checklist.Id"
+            title="Print checklist">
+            <i class="bi bi-printer"></i> print
+        </a>
+
+        <form method="post" asp-page-handler="Reset" asp-route-id="@Model.Checklist.Id" class="d-inline"
+            onsubmit="return confirm('Mark all tasks as NOT complete?');">
+            <button class="btn btn-sm btn-outline-secondary" type="submit" title="Reset all tasks to incomplete">
+                <i class="bi bi-arrow-counterclockwise"></i> reset
+            </button>
+        </form>
+
+        <form method="post" asp-page-handler="Complete" asp-route-id="@Model.Checklist.Id" class="d-inline"
+            onsubmit="return confirm('Mark all tasks as complete?');">
+            <button class="btn btn-sm btn-outline-secondary" type="submit" title="Mark all tasks as complete">
+                <i class="bi bi-check2-all"></i> complete all
             </button>
         </form>
 
 
-        <a class="btn btn-sm btn-outline-secondary" asp-page="/Checklists/Print" asp-route-id="@Model.Checklist.Id"
-            title="Print checklist">
-            <i class="bi bi-printer"></i>
-        </a>
+    </div>
+
+    <div class="d-flex align-items-center gap-5">
+        <form method="post" asp-page="/Checklists/Delete" asp-route-id="@Model.Checklist.Id" class="d-inline"
+            onsubmit="return confirm('Delete this checklist?')">
+            <button class="btn btn-sm btn-outline-danger" type="submit" title="Delete checklist">
+                <i class="bi bi-trash"></i> delete
+            </button>
+        </form>
     </div>
 </div>
 
