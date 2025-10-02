@@ -12,6 +12,7 @@ public class PlannerModel
 
     public async Task<IActionResult> OnGetAsync(int weekOffset = 0)
     {
+        string userId = UserId();
         WeekOffset = weekOffset;
 
         int diff = (7 + (today.DayOfWeek - DayOfWeek.Monday)) % 7;
@@ -27,8 +28,9 @@ public class PlannerModel
         DateOnly start = DaysOfWeek.First();
         DateOnly end = DaysOfWeek.Last().AddDays(1);
         List<Todo> todosThisWeek = await _db.Todos
+            .Where(t => t.OnDate >= start && t.OnDate < end && t.UserId == userId)
             .Include(t => t.Goal).Include(t => t.Project)
-            .Where(t => t.OnDate >= start && t.OnDate < end)
+            .AsNoTracking()
             .ToListAsync();
 
         MapDayTodos = DaysOfWeek.ToDictionary(
