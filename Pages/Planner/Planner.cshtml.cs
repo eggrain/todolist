@@ -43,10 +43,24 @@ public class PlannerModel
         return Page();
     }
 
-    public PlannerDayCardModel BuildPlannerDayViewModel(DateOnly day) => new()
+    public PlannerDayCardModel BuildPlannerDayViewModel(DateOnly day)
     {
-        Date = day,
-        Todos = MapDayTodos.TryGetValue(day, out var list) ? list : [],
-        UserId = UserId()
-    };
+        List<Todo> todos = MapDayTodos.TryGetValue(day, out var list) ? list : [];
+        TimeSpan timeSum = TimeSpan.FromTicks(
+        todos
+            .Where(t => t.StartTime.HasValue && t.EndTime.HasValue)
+            .Select(t => (t.EndTime!.Value - t.StartTime!.Value).Duration().Ticks)
+            .DefaultIfEmpty(0)
+            .Sum()
+        );
+
+        return new()
+        {
+            Date = day,
+            Todos = todos,
+            UserId = UserId(),
+            TimeSum = timeSum
+        };
+
+    }
 }
