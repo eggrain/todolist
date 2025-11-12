@@ -5,6 +5,8 @@
   ViewData["Title"] = "Print Checklist";
 }
 
+<h1 class="mb-4">@Model.Checklist.Name</h1>
+
 <div class="checklist-columns">
   @foreach (var task in Model.Checklist.Tasks.OrderBy(t => t.Order))
   {
