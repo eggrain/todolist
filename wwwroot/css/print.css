@@ -42,7 +42,7 @@ ul.list-group {
   border: 1px solid #000 !important;
 }
 
-/* Multi-column layout for many tasks */
+  /* Multi-column layout for many tasks */
   .checklist-columns {
     column-count: 2; /* change to 3 if needed */
     column-gap: 2rem;
@@ -72,6 +72,12 @@ ul.list-group {
   .task-desc {
     flex: 1;
     line-height: 1.2em;
+  }
+
+  .form-check-input {
+    margin-left: 0.75rem;
+    transform: scale(1.2);
+    align-self: center;
   }
 
   @media print {
