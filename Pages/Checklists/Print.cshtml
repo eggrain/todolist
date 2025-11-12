@@ -7,21 +7,22 @@
 
 <h1 class="mb-4">@Model.Checklist.Name</h1>
 
-<div class="row g-2 mb-4">
-  @foreach (var task in Model.Checklist.Tasks.OrderBy(t => t.Order))
+
+<div class="checklist-columns">
+  @foreach (ChecklistTask task in Model.Checklist.Tasks.OrderBy(t => t.Order))
   {
-    <div class="col-12 col-sm-6">
-      <div class="list-group-item d-flex justify-content-between align-items-center p-1">
-        <span>@task.Description</span>
-        <input class="form-check-input" type="checkbox" disabled />
+    <div class="checklist-item">
+      <div class="task-line">
+        <div class="task-number-line"></div>
+        <span class="task-desc">@task.Description</span>
       </div>
+      <input class="form-check-input" type="checkbox" disabled />
     </div>
   }
 </div>
 
-<div class="do-not-print d-flex justify-content-center">
-  <button type="button" onclick="window.print()"
-      class="btn btn-sm btn-outline-secondary">
+<div class="do-not-print d-flex justify-content-center mt-4">
+  <button type="button" onclick="window.print()" class="btn btn-sm btn-outline-secondary">
     Print
   </button>
 </div>

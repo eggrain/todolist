@@ -41,3 +41,45 @@ ul.list-group {
   height: 1.5rem !important;
   border: 1px solid #000 !important;
 }
+
+/* Multi-column layout for many tasks */
+  .checklist-columns {
+    column-count: 2; /* change to 3 if needed */
+    column-gap: 2rem;
+  }
+
+  .checklist-item {
+    break-inside: avoid;
+    display: flex;
+    align-items: flex-end; /* aligns line to text baseline */
+    justify-content: space-between;
+    padding: 0.3rem 0;
+  }
+
+  .task-line {
+    display: flex;
+    align-items: flex-end;
+    width: 100%;
+  }
+
+  .task-number-line {
+    flex: 0 0 1.8rem;
+    border-bottom: 1px solid #000;
+    margin-right: 0.5rem;
+    height: 0.8em;
+  }
+
+  .task-desc {
+    flex: 1;
+    line-height: 1.2em;
+  }
+
+  @media print {
+    .do-not-print {
+      display: none !important;
+    }
+
+    .checklist-columns {
+      column-count: 3;
+    }
+  }
