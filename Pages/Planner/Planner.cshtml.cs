@@ -59,8 +59,26 @@ public class PlannerModel
             Date = day,
             Todos = todos,
             UserId = UserId(),
-            TimeSum = timeSum
+            TimeSum = timeSum,
+            Income = CalculateIncome(timeSum)
         };
 
+    }
+
+    private static double CalculateIncome(TimeSpan time)
+    {
+        if (time.TotalHours <= 0) return 0;
+
+        double payRate = 21.5;
+
+        if (time.TotalHours <= 5)
+        {
+            return payRate * time.TotalHours;
+        }
+        else
+        {
+            double overtime = time.TotalHours - 5;
+            return payRate * 5 + payRate * 1.5 * overtime;
+        }
     }
 }
