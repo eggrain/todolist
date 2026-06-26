@@ -10,6 +10,8 @@ public class PlannerModel
     public string MonthYear { get; private set; } = null!;
     public Dictionary<DateOnly, List<Todo>> MapDayTodos { get; private set; } = [];
 
+    public double WeeklyIncome => DaysOfWeek.Sum(day => BuildPlannerDayViewModel(day).Income);
+
     public async Task<IActionResult> OnGetAsync(int weekOffset = 0)
     {
         string userId = UserId();
